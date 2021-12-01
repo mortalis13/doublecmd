@@ -215,7 +215,7 @@ uses
   LCLIntf, LCLProc, LazUTF8, Forms, Dialogs, Buttons, DCOSUtils, DCStrUtils,
   fMain, uShowMsg, uLng, uFileProperty, uFileSource, uFileSourceOperationTypes,
   uGlobs, uInfoToolTip, uDisplayFile, uFileSystemFileSource, uFileSourceUtil,
-  uArchiveFileSourceUtil, uFormCommands, uKeyboard, uFileSourceSetFilePropertyOperation;
+  uArchiveFileSourceUtil, uFormCommands, uKeyboard, uFileSourceSetFilePropertyOperation, strutils;
 
 type
   TControlHandlersHack = class(TWinControl)
@@ -1404,6 +1404,9 @@ procedure TFileViewWithMainCtrl.edtRenameKeyDown(Sender: TObject;
 var
   NewFileName: String;
   OldFileNameAbsolute: String;
+  I: Integer;
+  TextBefore, TextAfter: String;
+  CursorPos, wPos, wCount, wPosTemp, wNum, wLen, NewFileNameLen, DeletedChars: Integer;
 begin
 
   case Key of
@@ -1460,10 +1463,42 @@ begin
         end;
         FRenFile.UserManualEdit:=True; // user begin manual edit - no need cycle Name,Ext,FullName selection
       end;
-     VK_LEFT:
+    VK_LEFT:
         FRenFile.UserManualEdit:=True; // user begin manual edit - no need cycle Name,Ext,FullName selection
-
 {$ENDIF}
+    
+    VK_BACK:
+      begin
+        if (ssCtrl in Shift) then
+        begin
+          NewFileName := edtRename.Text;
+          CursorPos := edtRename.SelStart + edtRename.SelLength + 1;
+          NewFileNameLen := Length(NewFileName);
+          
+          wPos := 0;
+          wCount := WordCount(NewFileName, StdWordDelims);
+          
+          if wCount > 0 then
+          begin
+            for I := 1 to wCount do
+            begin
+              wPosTemp := WordPosition(I, NewFileName, StdWordDelims);
+              if wPosTemp >= CursorPos then Break;
+              wPos := wPosTemp;
+            end;
+          end;
+          
+          TextBefore := Copy(NewFileName, 1, wPos-1);
+          TextAfter := Copy(NewFileName, CursorPos, NewFileNameLen);
+          NewFileName := TextBefore + TextAfter;
+
+          edtRename.Text := NewFileName;
+          edtRename.SelStart := wPos-1;
+          
+          Key := 0;
+        end;
+      end;
+    
   end;
 end;
 
