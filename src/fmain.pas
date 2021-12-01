@@ -833,7 +833,8 @@ type
     function CopyFiles(SourceFileSource, TargetFileSource: IFileSource;
                        var SourceFiles: TFiles; TargetPath: String;
                        bShowDialog: Boolean;
-                       QueueIdentifier: TOperationsManagerQueueIdentifier = FreeOperationsQueueId): Boolean; overload;
+                       QueueIdentifier: TOperationsManagerQueueIdentifier = FreeOperationsQueueId;
+                       FoldersOnly: Boolean = False; TopFoldersOnly: Boolean = False): Boolean; overload;
     {en
        Returns @true if move operation has been successfully started.
     }
@@ -842,7 +843,8 @@ type
                        bShowDialog: Boolean;
                        QueueIdentifier: TOperationsManagerQueueIdentifier = FreeOperationsQueueId): Boolean; overload;
     function CopyFiles(sDestPath: String; bShowDialog: Boolean;
-                       QueueIdentifier: TOperationsManagerQueueIdentifier = FreeOperationsQueueId): Boolean; overload; //  this is for F5 and Shift+F5
+                       QueueIdentifier: TOperationsManagerQueueIdentifier = FreeOperationsQueueId;
+                       FoldersOnly: Boolean = False; TopFoldersOnly: Boolean = False): Boolean; overload; //  this is for F5 and Shift+F5
     function MoveFiles(sDestPath: String; bShowDialog: Boolean;
                        QueueIdentifier: TOperationsManagerQueueIdentifier = FreeOperationsQueueId): Boolean; overload;
     procedure GetDestinationPathAndMask(SourceFiles: TFiles;
@@ -3482,7 +3484,8 @@ end;
 function TfrmMain.CopyFiles(SourceFileSource, TargetFileSource: IFileSource;
                             var SourceFiles: TFiles; TargetPath: String;
                             bShowDialog: Boolean;
-                            QueueIdentifier: TOperationsManagerQueueIdentifier): Boolean;
+                            QueueIdentifier: TOperationsManagerQueueIdentifier;
+                            FoldersOnly, TopFoldersOnly: Boolean): Boolean;
 var
   sDestination: String;
   sDstMaskTemp: String;
@@ -3617,12 +3620,10 @@ begin
 
     case OperationType of
       fsoCopy:
-        begin
-          // Copy within the same file source.
-          Operation := SourceFileSource.CreateCopyOperation(
-                         SourceFiles,
-                         TargetPath) as TFileSourceCopyOperation;
-        end;
+        // Copy within the same file source.
+        Operation := SourceFileSource.CreateCopyOperation(
+                       SourceFiles,
+                       TargetPath) as TFileSourceCopyOperation;
       fsoCopyOut:
         // CopyOut to filesystem.
         Operation := SourceFileSource.CreateCopyOutOperation(
@@ -3641,6 +3642,8 @@ begin
     begin
       // Set operation options based on settings in dialog.
       Operation.RenameMask := sDstMaskTemp;
+      Operation.FoldersOnly := FoldersOnly;
+      Operation.TopFoldersOnly := TopFoldersOnly;
 
       if Assigned(CopyDialog) then
         CopyDialog.SetOperationOptions(Operation);
@@ -3802,7 +3805,8 @@ begin
 end;
 
 function TfrmMain.CopyFiles(sDestPath: String; bShowDialog: Boolean;
-                            QueueIdentifier: TOperationsManagerQueueIdentifier = FreeOperationsQueueId): Boolean;
+                            QueueIdentifier: TOperationsManagerQueueIdentifier;
+                            FoldersOnly, TopFoldersOnly: Boolean): Boolean;
 var
   FileSource: IFileSource;
   SourceFiles: TFiles = nil;
@@ -3817,7 +3821,8 @@ begin
     end;
     try
       Result := CopyFiles(ActiveFrame.FileSource, FileSource,
-                          SourceFiles, sDestPath, bShowDialog, QueueIdentifier);
+                          SourceFiles, sDestPath, bShowDialog, QueueIdentifier,
+                          FoldersOnly, TopFoldersOnly);
       if Result then
         ActiveFrame.MarkFiles(False);
 

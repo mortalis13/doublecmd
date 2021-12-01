@@ -195,6 +195,8 @@ begin
   FOperationHelper.FileExistsOption := FileExistsOption;
   FOperationHelper.DirExistsOption := DirExistsOption;
   FOperationHelper.SetPropertyError := SetPropertyError;
+  FOperationHelper.ProcessFoldersOnly := FoldersOnly;
+  FOperationHelper.ProcessTopFoldersOnly := TopFoldersOnly;
 
   FOperationHelper.Initialize;
 end;

@@ -47,6 +47,8 @@ type
     FSourceFiles: TFiles;
     FTargetPath: String;
     FRenameMask: String;
+    FFoldersOnly: Boolean;
+    FTopFoldersOnly: Boolean;
 
   protected
     FCopyAttributesOptions: TCopyAttributesOptions;
@@ -96,6 +98,8 @@ type
     property FileExistsOption: TFileSourceOperationOptionFileExists read FFileExistsOption write FFileExistsOption;
     property CopyAttributesOptions: TCopyAttributesOptions read FCopyAttributesOptions write FCopyAttributesOptions;
     property DirExistsOption: TFileSourceOperationOptionDirectoryExists read FDirExistsOption write FDirExistsOption;
+    property FoldersOnly: Boolean read FFoldersOnly write FFoldersOnly;
+    property TopFoldersOnly: Boolean read FTopFoldersOnly write FTopFoldersOnly;
   end;
 
   {en
