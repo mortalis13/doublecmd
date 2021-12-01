@@ -402,7 +402,7 @@ uses fOptionsPluginsBase, fOptionsPluginsDSX, fOptionsPluginsWCX,
      {$ELSE}
      , uColumnsFileView
      {$ENDIF}
-     ;
+     , fStatistics;
 
 resourcestring
   rsFavoriteTabs_SetupNotExist = 'No setup named "%s"';
@@ -551,6 +551,8 @@ procedure TMainCommands.OnCalcStatisticsStateChanged(Operation: TFileSourceOpera
 var
   CalcStatisticsOperation: TFileSourceCalcStatisticsOperation;
   CalcStatisticsOperationStatistics: TFileSourceCalcStatisticsOperationStatistics;
+  StatText: String;
+  frmStatistics: TfrmStatistics;
 begin
   if (State = fsosStopped) and (Operation.Result = fsorFinished) then
   begin
@@ -558,7 +560,10 @@ begin
     CalcStatisticsOperationStatistics := CalcStatisticsOperation.RetrieveStatistics;
     with CalcStatisticsOperationStatistics do
     begin
-      msgOK(Format(rsSpaceMsg, [Files, Directories, cnvFormatFileSize(Size), Numb2USA(IntToStr(Size))]));
+      StatText := Format(rsSpaceMsg, [Files, Directories, cnvFormatFileSize(Size), Numb2USA(IntToStr(Size))]);
+      frmStatistics := TfrmStatistics.Create(Self);
+      frmStatistics.lblStatistics.Caption := StatText;
+      frmStatistics.ShowForm;
     end;
   end;
 end;
