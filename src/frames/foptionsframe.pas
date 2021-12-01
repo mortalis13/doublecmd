@@ -185,7 +185,8 @@ uses
   fOptionsFileAssoc,
   fOptionsFileAssocExtra,
   fOptionsDirectoryHotlist,
-  fOptionsDirectoryHotlistExtra;
+  fOptionsDirectoryHotlistExtra,
+  fOptionsExtended;
 
 { TOptionsEditorRec }
 
@@ -409,6 +410,7 @@ begin
   Main.Add(TfrmOptionsIgnoreList);
   Main.Add(TfrmOptionsArchivers);
   Main.Add(TfrmOptionsToolTips);
+  Main.Add(TfrmOptionsExtended);
   FileAssoc := Main.Add(TfrmOptionsFileAssoc);
   FileAssoc.Add(TfrmOptionsFileAssocExtra);
   DirectoryHotlistConfig := Main.Add(TfrmOptionsDirectoryHotlist);
