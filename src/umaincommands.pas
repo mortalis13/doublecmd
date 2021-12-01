@@ -2233,6 +2233,8 @@ var
   sCmd: string = '';
   sParams: string = '';
   sStartPath: string = '';
+  bUseInternalEditor: Boolean = False;
+  Param: String;
 begin
   with frmMain do
   try
@@ -2263,7 +2265,14 @@ begin
       if gExts.GetExtActionCmd(aFile, 'edit', sCmd, sParams, sStartPath) then
         ProcessExtCommandFork(sCmd, sParams, aFile.Path)
       else
-        ShowEditorByGlob(aFile.FullPath);
+      begin
+        for Param in Params do
+        begin
+          if Param = 'UseInternal' then bUseInternalEditor := True;
+        end;
+        
+        ShowEditorByGlob(aFile.FullPath, bUseInternalEditor);
+      end;
 
     except
       on e: EInvalidCommandLine do
@@ -3723,7 +3732,14 @@ var
   sParams: string = '';
   sStartPath: string = '';
   AElevate: TDuplicates = dupIgnore;
+  bOpenEditor: Boolean = False;
+  Param: String;
 begin
+  for Param in Params do
+  begin
+    if Param = 'OpenEditor' then bOpenEditor := True;
+  end;
+  
   frmMain.ActiveFrame.ExecuteCommand('cm_EditNew', Params);
 
   // For now only works for FileSystem.
@@ -3775,14 +3791,19 @@ begin
     end;
 
     aFile := TFileSystemFileSource.CreateFileFromFile(sNewFile);
+    ActiveFrame.SetActiveFile(aFile.FullPath);
+    
     try
-      // Try to find Edit command in "extassoc.xml"
-      if not gExts.GetExtActionCmd(aFile, 'edit', sCmd, sParams, sStartPath) then
-        ShowEditorByGlob(aFile.FullPath) // If command not found then use default editor
-      else
-        begin
-          ProcessExtCommandFork(sCmd, sParams, aFile.Path, aFile);
-        end;
+      if bOpenEditor then
+      begin
+        // Try to find Edit command in "extassoc.xml"
+        if not gExts.GetExtActionCmd(aFile, 'edit', sCmd, sParams, sStartPath) then
+          ShowEditorByGlob(aFile.FullPath) // If command not found then use default editor
+        else
+          begin
+            ProcessExtCommandFork(sCmd, sParams, aFile.Path, aFile);
+          end;
+      end;
     finally
       FreeAndNil(aFile);
     end;
