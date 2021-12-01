@@ -48,6 +48,7 @@ type
     Background2,
     MarkColor,
     CursorColor,
+    SelectionCursorColor,
     CursorText,
     InactiveCursorColor,
     InactiveMarkColor: TColor;
@@ -86,6 +87,7 @@ type
     Background2,
     MarkColor,
     CursorColor,
+    SelectionCursorColor,
     CursorText,
     InactiveCursorColor,
     InactiveMarkColor: TColor;
@@ -140,6 +142,7 @@ type
     function GetColumnBackground2(const Index: Integer): TColor;
     function GetColumnMarkColor(const Index: Integer): TColor;
     function GetColumnCursorColor(const Index: Integer): TColor;
+    function GetColumnSelectionCursorColor(const Index: Integer): TColor;
     function GetColumnCursorText(const Index: Integer): TColor;
     function GetColumnInactiveCursorColor(const Index: Integer): TColor;
     function GetColumnInactiveMarkColor(const Index: Integer): TColor;
@@ -180,6 +183,7 @@ type
     procedure SetColumnBackground2(const Index: Integer; Value: TColor);
     procedure SetColumnMarkColor(const Index: Integer; Value: TColor);
     procedure SetColumnCursorColor(const Index: Integer; Value: TColor);
+    procedure SetColumnSelectionCursorColor(const Index: Integer; Value: TColor);
     procedure SetColumnCursorText(const Index: Integer; Value: TColor);
     procedure SetColumnInactiveCursorColor(const Index: Integer; Value: TColor);
     procedure SetColumnInactiveMarkColor(const Index: Integer; Value: TColor);
@@ -380,6 +384,14 @@ begin
     Result := gCursorColor;
 end;
 
+function TPanelColumnsClass.GetColumnSelectionCursorColor(const Index: Integer): TColor;
+begin
+  if FCustomView and (Index < Flist.Count) then
+    Result := TPanelColumn(Flist[Index]).SelectionCursorColor
+  else
+    Result := gSelectionCursorColor;
+end;
+
 function TPanelColumnsClass.GetColumnCursorText(const Index: Integer): TColor;
 begin
   if FCustomView and (Index < Flist.Count) then
@@ -450,6 +462,7 @@ begin
   Result.Background2 := GetColumnBackground2(Index);
   Result.MarkColor := GetColumnMarkColor(Index);
   Result.CursorColor := GetColumnCursorColor(Index);
+  Result.SelectionCursorColor := GetColumnSelectionCursorColor(Index);
   Result.CursorText := GetColumnCursorText(Index);
   Result.InactiveCursorColor := GetColumnInactiveCursorColor(Index);
   Result.InactiveMarkColor := GetColumnMarkColor(Index);
@@ -622,6 +635,7 @@ begin
     NewColumn.Background2 := OldColumn.Background2;
     NewColumn.MarkColor   := OldColumn.MarkColor;
     NewColumn.CursorColor := OldColumn.CursorColor;
+    NewColumn.SelectionCursorColor := OldColumn.SelectionCursorColor;
     NewColumn.CursorText  := OldColumn.CursorText;
     NewColumn.InactiveCursorColor := OldColumn.InactiveCursorColor;
     NewColumn.InactiveMarkColor := OldColumn.InactiveMarkColor;
@@ -661,6 +675,7 @@ begin
   AColumn.Background2 := gBackColor2;
   AColumn.MarkColor   := gMarkColor;
   AColumn.CursorColor := gCursorColor;
+  AColumn.SelectionCursorColor := gSelectionCursorColor;
   AColumn.CursorText  := gCursorText;
   AColumn.InactiveCursorColor := gInactiveCursorColor;
   AColumn.InactiveMarkColor := gInactiveMarkColor;
@@ -753,6 +768,13 @@ begin
   TPanelColumn(Flist[Index]).CursorColor := Value;
 end;
 
+procedure TPanelColumnsClass.SetColumnSelectionCursorColor(const Index: Integer; Value: TColor);
+begin
+  if Index > Flist.Count then
+    Exit;
+  TPanelColumn(Flist[Index]).SelectionCursorColor := Value;
+end;
+
 procedure TPanelColumnsClass.SetColumnCursorText(const Index: Integer; Value: TColor);
 begin
   if Index > Flist.Count then
@@ -807,6 +829,7 @@ begin
   SetColumnBackground2(Index, Value.Background2);
   SetColumnMarkColor(Index, Value.MarkColor);
   SetColumnCursorColor(Index, Value.CursorColor);
+  SetColumnSelectionCursorColor(Index, Value.SelectionCursorColor);
   SetColumnCursorText(Index, Value.CursorText);
   SetColumnInactiveCursorColor(Index, Value.InactiveCursorColor);
   SetColumnInactiveMarkColor(Index, Value.InactiveMarkColor);
@@ -886,6 +909,7 @@ begin
         AColumn.Background2 := TColor(AConfig.GetValue(SubNode, 'Background2', gBackColor2));
         AColumn.MarkColor := TColor(AConfig.GetValue(SubNode, 'MarkColor', gMarkColor));
         AColumn.CursorColor := TColor(AConfig.GetValue(SubNode, 'CursorColor', gCursorColor));
+        AColumn.SelectionCursorColor := TColor(AConfig.GetValue(SubNode, 'SelectionCursorColor', gSelectionCursorColor));
         AColumn.CursorText := TColor(AConfig.GetValue(SubNode, 'CursorText', gCursorText));
         AColumn.InactiveCursorColor := TColor(AConfig.GetValue(SubNode, 'InactiveCursorColor', gInactiveCursorColor));
         AColumn.InactiveMarkColor := TColor(AConfig.GetValue(SubNode, 'InactiveMarkColor', gInactiveMarkColor));
@@ -959,6 +983,8 @@ begin
         AConfig.AddValue(SubNode, 'MarkColor', AColumn.MarkColor);
       if AColumn.CursorColor <> clNone then
         AConfig.AddValue(SubNode, 'CursorColor', AColumn.CursorColor);
+      if AColumn.SelectionCursorColor <> clNone then
+        AConfig.AddValue(SubNode, 'SelectionCursorColor', AColumn.SelectionCursorColor);
       if AColumn.CursorText <> clNone then
         AConfig.AddValue(SubNode, 'CursorText', AColumn.CursorText);
       if AColumn.InactiveCursorColor <> clNone then
@@ -1011,6 +1037,7 @@ begin
         Result := crc32(Result, @Background2, sizeof(Background2));
         Result := crc32(Result, @MarkColor, sizeof(MarkColor));
         Result := crc32(Result, @CursorColor, sizeof(CursorColor));
+        Result := crc32(Result, @SelectionCursorColor, sizeof(SelectionCursorColor));
         Result := crc32(Result, @CursorText, sizeof(CursorText));
         Result := crc32(Result, @InactiveCursorColor, sizeof(InactiveCursorColor));
         Result := crc32(Result, @InactiveMarkColor, sizeof(InactiveMarkColor));
@@ -1288,6 +1315,7 @@ begin
   Self.Background2 := gBackColor2;
   Self.MarkColor   := gMarkColor;
   Self.CursorColor := gCursorColor;
+  Self.SelectionCursorColor := gSelectionCursorColor;
   Self.CursorText  := gCursorText;
   Self.InactiveCursorColor := gInactiveCursorColor;
   Self.InactiveMarkColor   := gInactiveMarkColor;

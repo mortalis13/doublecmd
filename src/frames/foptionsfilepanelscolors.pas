@@ -93,6 +93,9 @@ type
     pnlLeftPreview: TPanel;
     pnlRightPreview: TPanel;
     optColorDialog: TColorDialog;
+    cbSelectionCursorColor: TColorBox;
+    lblSelectionCursorColor: TLabel;
+    
     procedure btnCursorBorderColorClick(Sender: TObject);
     procedure btnResetToDCDefaultClick(Sender: TObject);
     procedure cbbUseFrameCursorChange(Sender: TObject);
@@ -102,6 +105,7 @@ type
     procedure btnBackColor2Click(Sender: TObject);
     procedure btnMarkColorClick(Sender: TObject);
     procedure btnCursorColorClick(Sender: TObject);
+    procedure btnSelectionCursorColorClick(Sender: TObject);
     procedure btnCursorTextClick(Sender: TObject);
     procedure btnInactiveCursorColorClick(Sender: TObject);
     procedure btnInactiveMarkColorClick(Sender: TObject);
@@ -173,6 +177,7 @@ begin
   SetColorInColorBox(cbBackColor2, gBackColor2);
   SetColorInColorBox(cbMarkColor, gMarkColor);
   SetColorInColorBox(cbCursorColor, gCursorColor);
+  SetColorInColorBox(cbSelectionCursorColor, gSelectionCursorColor);
   SetColorInColorBox(cbCursorText, gCursorText);
   SetColorInColorBox(cbInactiveCursorColor, gInactiveCursorColor);
   SetColorInColorBox(cbInactiveMarkColor, gInactiveMarkColor);
@@ -218,6 +223,7 @@ begin
   gBackColor2 := cbBackColor2.Selected;
   gMarkColor := cbMarkColor.Selected;
   gCursorColor := cbCursorColor.Selected;
+  gSelectionCursorColor := cbSelectionCursorColor.Selected;
   gCursorText := cbCursorText.Selected;
   gInactiveCursorColor := cbInactiveCursorColor.Selected;
   gInactiveMarkColor := cbInactiveMarkColor.Selected;
@@ -258,6 +264,7 @@ begin
   SetColorInColorBox(cbBackColor2, clWindow);
   SetColorInColorBox(cbMarkColor, clRed);
   SetColorInColorBox(cbCursorColor, clHighlight);
+  SetColorInColorBox(cbSelectionCursorColor, clBlack);
   SetColorInColorBox(cbCursorText, clHighlightText);
   SetColorInColorBox(cbInactiveCursorColor, clInactiveCaption);
   SetColorInColorBox(cbInactiveMarkColor, clMaroon);
@@ -338,6 +345,17 @@ begin
   if optColorDialog.Execute then
   begin
     SetColorInColorBox(cbCursorColor, optColorDialog.Color);
+    RefreshPreviewPanel;
+  end;
+end;
+
+{ TfrmOptionsFilePanelsColors.btnSelectionCursorColorClick }
+procedure TfrmOptionsFilePanelsColors.btnSelectionCursorColorClick(Sender: TObject);
+begin
+  optColorDialog.Color := cbSelectionCursorColor.Selected;
+  if optColorDialog.Execute then
+  begin
+    SetColorInColorBox(cbSelectionCursorColor, optColorDialog.Color);
     RefreshPreviewPanel;
   end;
 end;
@@ -484,6 +502,7 @@ begin
   ColPrm.Background2 := cbBackColor2.Selected;
   ColPrm.MarkColor := cbMarkColor.Selected;
   ColPrm.CursorColor := cbCursorColor.Selected;
+  ColPrm.SelectionCursorColor := cbSelectionCursorColor.Selected;
   ColPrm.CursorText := cbCursorText.Selected;
   ColPrm.InactiveCursorColor := cbInactiveCursorColor.Selected;
   ColPrm.InactiveMarkColor := cbInactiveMarkColor.Selected;
