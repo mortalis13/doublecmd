@@ -5931,11 +5931,6 @@ msgstr "해시 계산 버퍼 크기 (KB단위)(&H):"
 msgid "Show operations progress &initially in"
 msgstr "작업 진행상황 표시(&I)"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgctxt "TFRMOPTIONSFILEOPERATIONS.LBLTYPEOFDUPLICATEDRENAME.CAPTION"
-msgid "Duplicated name auto-rename style:"
-msgstr "중복 파일명 자동 변경:"
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgid "&Number of wipe passes:"
 msgstr "삭제 작업 수행 횟수(&N):"
@@ -13214,10 +13209,6 @@ msgstr ""
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr ""
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "DC 레거시 - 복사 (x) 파일명.확장자;MS - 파일명 (x).확장자;기타 - 파일명(x).확장자"
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"

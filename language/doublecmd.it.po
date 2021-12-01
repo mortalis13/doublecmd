@@ -6042,11 +6042,6 @@ msgstr ""
 msgid "Show operations progress &initially in"
 msgstr "Mostra &inizialmente il progresso delle operazioni in:"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgctxt "tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption"
-msgid "Duplicated name auto-rename style:"
-msgstr ""
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgid "&Number of wipe passes:"
 msgstr "&Numero passaggi di cancellazione sicura"
@@ -13468,10 +13463,6 @@ msgstr ""
 
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
-msgstr ""
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
 msgstr ""
 
 #: ulng.rsoptupdatedfilesposition

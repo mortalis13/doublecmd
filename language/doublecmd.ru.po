@@ -5944,11 +5944,6 @@ msgstr "Размер буфера для вычисления &хеша (Кб):"
 msgid "Show operations progress &initially in"
 msgstr "Показат&ь прогресс операций в"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgctxt "tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption"
-msgid "Duplicated name auto-rename style:"
-msgstr "Стиль автопереименования совпадающих имён:"
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgctxt "TFRMOPTIONSFILEOPERATIONS.LBLWIPEPASSNUMBER.CAPTION"
 msgid "&Number of wipe passes:"
@@ -13267,10 +13262,6 @@ msgstr "Укажите место и имя файла для сохранени
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr "Имя"
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "Штатный - Копия (x) имяфайла.тип;Windows - имяфайла (x).тип;Другой - имяфайла(x).тип"
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"

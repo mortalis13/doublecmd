@@ -5948,11 +5948,6 @@ msgstr "&Hash számítás puffermérete (kB-ban):"
 msgid "Show operations progress &initially in"
 msgstr "Folyamatban lévő művelete&k megjelenítése"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgctxt "tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption"
-msgid "Duplicated name auto-rename style:"
-msgstr "Létező fájl esetén az automatikus átnevezés stílusa:"
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgctxt "TFRMOPTIONSFILEOPERATIONS.LBLWIPEPASSNUMBER.CAPTION"
 msgid "&Number of wipe passes:"
@@ -13280,10 +13275,6 @@ msgstr "Add meg a buboréktipp fájltípus beállítások mentésének helyét �
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr "Buboréktipp fájl típus név"
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "Régi DC - Copy (x) fájlnév.kit;Windows - fájlnév (x).kit;Egyéb - fájlnév(x).kit"
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"

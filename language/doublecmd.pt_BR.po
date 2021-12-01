@@ -5997,11 +5997,6 @@ msgstr "Tamanho do buffer para cálculo do hash (em KB):"
 msgid "Show operations progress &initially in"
 msgstr "Mostrar progresso da operação &inicialmente em"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgctxt "tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption"
-msgid "Duplicated name auto-rename style:"
-msgstr "Renoeação automática do estilo para nome duplicado."
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgid "&Number of wipe passes:"
 msgstr "&Número de passagens de limpeza."
@@ -13460,10 +13455,6 @@ msgstr ""
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr ""
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "DC legacy - Copiar (x) nome_de_arquivo.ext; Windows - nome_de_arquivo (x).ext; Outro - nome_do_arquivo (x).ext"
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"

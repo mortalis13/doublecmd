@@ -5826,10 +5826,6 @@ msgstr "Velikost vyrovnávací paměti pro výpočet &hash (v KB):"
 msgid "Show operations progress &initially in"
 msgstr "Zobrazit pokrok v operacích &zpočátku v"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgid "Duplicated name auto-rename style:"
-msgstr "Styl stejného názvu souboru u automatického přejmenování:"
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgid "&Number of wipe passes:"
 msgstr "&Počet nevratně mazacích průchodů:"
@@ -12989,10 +12985,6 @@ msgstr "Zadejte umístění a název souboru kam uložit konfiguraci tooltip ná
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr "Název"
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "Starší DC - kopie (x) názevsouboru.ext;Windows - názevsouboru (x).ext;Ostatní - názevsouboru(x).ext"
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"

@@ -5828,10 +5828,6 @@ msgstr "Buffergrootte voor hashberekening (in KB):"
 msgid "Show operations progress &initially in"
 msgstr "Toon voortgang van bewerkingen in het begin in"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgid "Duplicated name auto-rename style:"
-msgstr "Gedupliceerde naam in 'automatisch hernoemen'-stijl:"
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgid "&Number of wipe passes:"
 msgstr "Aantal wissingen:"
@@ -12986,10 +12982,6 @@ msgstr "Voer de locatie en bestandsnaam in waar de configuratie van het tooltip-
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr "Tooltip-bestandstype naam"
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "DC ouderwets - Kopieer (x) bestandnaam.ext;Windows - bestandnaam (x).ext;Ander - bestandnaam (x).ext"
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"

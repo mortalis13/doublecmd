@@ -5827,10 +5827,6 @@ msgstr "Veľkosť vyrovnávacej pamäte pre výpočet &hashu (v KB):"
 msgid "Show operations progress &initially in"
 msgstr "Ukázať postup operácií &inicializovaný v"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgid "Duplicated name auto-rename style:"
-msgstr ""
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgid "&Number of wipe passes:"
 msgstr "Počet prechodov bezpečného vymazania:"
@@ -12953,10 +12949,6 @@ msgstr "Zadajte umiestnenie a názov súboru pre uloženie konfigurácie súboru
 
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
-msgstr ""
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
 msgstr ""
 
 #: ulng.rsoptupdatedfilesposition

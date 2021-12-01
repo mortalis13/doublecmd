@@ -6247,11 +6247,6 @@ msgstr ""
 msgid "Show operations progress &initially in"
 msgstr "Prikaži početni napredak radnji u"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgctxt "tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption"
-msgid "Duplicated name auto-rename style:"
-msgstr "Naziv automatskog preimenovanja stila za kopiranje:"
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgid "&Number of wipe passes:"
 msgstr "&Broj prolaza potpunog brisanja:"
@@ -13709,10 +13704,6 @@ msgstr ""
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr ""
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "Naslijeđe DC - Kopija (x) ime datoteke.tip;Windows - ime datoteke (x).tip;Drugo - ime datoteke(x).tip"
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"

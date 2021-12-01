@@ -5929,11 +5929,6 @@ msgstr "ハッシュ値の計算のためのバッファサイズ（KB単位）(
 msgid "Show operations progress &initially in"
 msgstr "操作の進行状況を最初ここに表示(&i)"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgctxt "tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption"
-msgid "Duplicated name auto-rename style:"
-msgstr "重複した名前を自動的に変更するスタイル："
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgid "&Number of wipe passes:"
 msgstr "完全削除（抹殺）の実行回数(&N)："
@@ -13253,10 +13248,6 @@ msgstr "ツールヒントファイルタイプの設定を保存する場所と
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr "ツールヒント ファイルの種類名"
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "DCレガシー：　Copy (x) ファイル名.拡張子;Windows：　ファイル名 (x).拡張子;その他：　ファイル名(x).拡張子"
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"
