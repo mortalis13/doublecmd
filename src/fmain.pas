@@ -563,6 +563,7 @@ type
     
     actToggleFreeSorting: TAction;
     actJumpToPrevTabInStack: TAction;
+    actMaximizePanel: TAction;
     actToggleAliasMode: TAction;
     
     mnuToggleAliasMode: TMenuItem;
