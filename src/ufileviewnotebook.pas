@@ -411,6 +411,8 @@ begin
   FCanChangePageIndex := True;
   FNotebookSide := NotebookSide;
   FStartDrag := False;
+  
+  TabHeight := 34;
 
   {$IFDEF MSWINDOWS}
   // The pages contents are removed from drawing background in EraseBackground.

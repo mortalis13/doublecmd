@@ -118,6 +118,8 @@ begin
       '?', ':': DCDebug ('Error with opt : ', OptOpt);
     end; { case }
   until Option = EndOfOptions;
+  
+  CommandLineParams.NoSplash := True;
 
   if OptInd <= ParamCount then
   begin
