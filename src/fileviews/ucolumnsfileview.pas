@@ -1557,7 +1557,8 @@ var
           //------------------------------------------------------
           if IsCursor OR (IsCursorInactive AND ColumnsSet.GetColumnUseInactiveSelColor(ACol)) then
             begin
-              TextColor := InvertColor(ColorToRGB(ColumnsSet.GetColumnCursorText(ACol)));
+              BackgroundColor := ColumnsSet.GetColumnSelectionCursorColor(ACol);
+              TextColor := ColumnsSet.GetColumnCursorText(ACol);
             end
           else
             begin

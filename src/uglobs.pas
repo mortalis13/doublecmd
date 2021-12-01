@@ -426,6 +426,7 @@ var
   gBackColor2, //Background color 2
   gMarkColor,  // Mark color
   gCursorColor, //Cursor color
+  gSelectionCursorColor,
   gCursorText,  //text color under cursor
   gInactiveCursorColor, //Inactive cursor color
   gInactiveMarkColor: TColor; //Inactive Mark color
@@ -1748,6 +1749,7 @@ begin
   gBackColor2 := clWindow;
   gMarkColor := clRed;
   gCursorColor := clHighlight;
+  gSelectionCursorColor := clBlack;
   gCursorText := clHighlightText;
   gInactiveCursorColor := clInactiveCaption;
   gInactiveMarkColor := clMaroon;
@@ -2693,6 +2695,7 @@ begin
       gBackColor2 := GetValue(Node, 'Background2', gBackColor2);
       gMarkColor := GetValue(Node, 'Mark', gMarkColor);
       gCursorColor := GetValue(Node, 'Cursor', gCursorColor);
+      gSelectionCursorColor := GetValue(Node, 'SelectionCursor', gSelectionCursorColor);
       gCursorText := GetValue(Node, 'CursorText', gCursorText);
       gInactiveCursorColor := GetValue(Node, 'InactiveCursor', gInactiveCursorColor);
       gInactiveMarkColor := GetValue(Node, 'InactiveMark', gInactiveMarkColor);
@@ -3427,6 +3430,7 @@ begin
     SetValue(Node, 'Background', gBackColor);
     SetValue(Node, 'Background2', gBackColor2);
     SetValue(Node, 'Cursor', gCursorColor);
+    SetValue(Node, 'SelectionCursor', gSelectionCursorColor);
     SetValue(Node, 'CursorText', gCursorText);
     SetValue(Node, 'Mark', gMarkColor);
     SetValue(Node, 'InactiveCursor', gInactiveCursorColor);
