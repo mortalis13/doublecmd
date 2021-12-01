@@ -45,6 +45,8 @@ type
 
     procedure ShowPathEdit;
     procedure SetActive(bActive: Boolean);
+    procedure SetQuickViewMode;
+    procedure RemoveQuickViewMode;
   end;
 
   { TFileViewFixedHeader }
@@ -362,6 +364,16 @@ procedure TFileViewHeader.SetActive(bActive: Boolean);
 begin
   FAddressLabel.SetActive(bActive);
   FPathLabel.SetActive(bActive);
+end;
+
+procedure TFileViewHeader.SetQuickViewMode;
+begin
+  FPathLabel.SetQuickViewMode;
+end;
+
+procedure TFileViewHeader.RemoveQuickViewMode;
+begin
+  FPathLabel.RemoveQuickViewMode;
 end;
 
 { TFileViewFixedHeader }
