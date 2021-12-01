@@ -561,7 +561,8 @@ type
     actChangeDirToNextSibling: TAction;
     actChangeDirToPrevSibling: TAction;
     actToggleAliasMode: TAction;
-    
+    actRenameFilesWithEditor: TAction;
+
     mnuToggleAliasMode: TMenuItem;
     mnuFilesToggleFreeSorting: TMenuItem;
     

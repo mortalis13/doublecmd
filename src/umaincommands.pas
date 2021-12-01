@@ -28,7 +28,8 @@ interface
 
 uses
   Classes, SysUtils, ActnList, uFileView, uFileViewNotebook, uFileSourceOperation,
-  uGlobs, uFileFunctions, uFormCommands, uFileSorting, uShellContextMenu, Menus, ufavoritetabs,ufile;
+  uGlobs, uFileFunctions, uFormCommands, uFileSorting, uShellContextMenu, Menus, ufavoritetabs, ufile,
+  DCClassesUtf8, fMultiRenameWait;
 
 type
 
@@ -377,6 +378,7 @@ type
    procedure cm_ChangeDirToPrevSibling(const Params: array of String);
    procedure cm_ToggleFreeSorting(const Params: array of String);
    procedure cm_ToggleAliasMode(const Params: array of String);
+   procedure cm_RenameFilesWithEditor(const Params: array of String);
 
    // Internal commands
    procedure cm_ExecuteToolbarItem(const Params: array of string);
@@ -5582,6 +5584,76 @@ procedure TMainCommands.cm_ToggleAliasMode(const Params: array of String);
 begin
   gUseAliasCommands := not gUseAliasCommands;
   frmMain.actToggleAliasMode.Checked := uGlobs.gUseAliasCommands;
+end;
+
+procedure TMainCommands.cm_RenameFilesWithEditor(const Params: array of String);
+var
+  I, J: Integer;
+  MarkIndex: Integer;
+  AFileName: String;
+  FileNameSource: String;
+  FileNameResult: String;
+  AFileList: TStringListEx;
+  AFileListResult: TStringListEx;
+  FFiles, AllFiles: TFiles;
+  DisplayFiles: TDisplayFiles;
+  SelectedIndices: TList;
+begin
+  SelectedIndices := TList.Create;
+  
+  AFileList:= TStringListEx.Create;
+  AFileName:= GetTempFolderDeletableAtTheEnd;
+  AFileName:= GetTempName(AFileName) + '.txt';
+  
+  FFiles := frmMain.ActiveFrame.CloneSelectedFiles;
+  AllFiles := frmMain.ActiveFrame.CloneFiles;
+  
+  for I:=0 to AllFiles.Count - 1 do
+    for J:=0 to FFiles.Count - 1 do
+    begin
+      if AllFiles[I].Name = FFiles[J].Name then
+      begin
+        SelectedIndices.Add(Pointer(I));
+        break;
+      end;
+    end;
+  
+  for I:= 0 to FFiles.Count - 1 do
+    AFileList.Add(FFiles[I].Name);
+
+  try
+    AFileList.SaveToFile(AFileName);
+
+    if ShowMultiRenameWaitForm(AFileName, frmMain) then
+    begin
+      AFileListResult:= TStringListEx.Create;
+      AFileListResult.LoadFromFile(AFileName);
+      
+      if AFileListResult.Count <> FFiles.Count then
+      begin
+        msgError(Format(rsMulRenWrongLinesNumber, [AFileListResult.Count, FFiles.Count]));
+      end
+      else
+      begin
+        for I:= 0 to AFileListResult.Count - 1 do
+        begin
+          FileNameSource := FFiles[I].FullPath;
+          FileNameResult := ExtractFilePath(FileNameSource) + AFileListResult[I];
+          mbRenameFile(FileNameSource, FileNameResult);
+        end;
+      end;
+      
+      frmMain.ActiveFrame.MarkFiles(False);
+
+      AFileListResult.Free;
+      mbDeleteFile(AFileName);
+    end;
+  except
+    on E: Exception do msgError(E.Message);
+  end;
+  
+  AFileList.Free;
+  SelectedIndices.Free;
 end;
 
 end.
