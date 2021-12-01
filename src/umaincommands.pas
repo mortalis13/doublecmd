@@ -28,7 +28,8 @@ interface
 
 uses
   Classes, SysUtils, ActnList, uFileView, uFileViewNotebook, uFileSourceOperation,
-  uGlobs, uFileFunctions, uFormCommands, uFileSorting, uShellContextMenu, Menus, ufavoritetabs,ufile;
+  uGlobs, uFileFunctions, uFormCommands, uFileSorting, uShellContextMenu, Menus, ufavoritetabs, ufile,
+  DCClassesUtf8, fMultiRenameWait, LazUtf8;
 
 type
 
@@ -380,6 +381,7 @@ type
    procedure cm_ChangeDirToPrevSibling(const Params: array of String);
    procedure cm_ToggleFreeSorting(const Params: array of String);
    procedure cm_ToggleAliasMode(const Params: array of String);
+   procedure cm_RenameFilesWithEditor(const Params: array of String);
 
    // Internal commands
    procedure cm_ExecuteToolbarItem(const Params: array of string);
@@ -5686,6 +5688,115 @@ procedure TMainCommands.cm_ToggleAliasMode(const Params: array of String);
 begin
   gUseAliasCommands := not gUseAliasCommands;
   frmMain.actToggleAliasMode.Checked := uGlobs.gUseAliasCommands;
+end;
+
+procedure TMainCommands.cm_RenameFilesWithEditor(const Params: array of String);
+var
+  I, J: Integer;
+  MarkIndex: Integer;
+  AFileName: String;
+  FileNameSource: String;
+  FileNameResult: String;
+  AFileList: TStringListEx;
+  AFileListResult: TStringListEx;
+  FFiles, AllFiles: TFiles;
+  DisplayFiles: TDisplayFiles;
+  
+  FLog: TStringListEx;
+  LogFileStream: TFileStream;
+  S: String;
+  LogFileName: String;
+  RenameResult: Boolean;
+  DummyForm: TfrmStatistics;
+begin
+  AFileList := TStringListEx.Create;
+  AFileName := GetTempFolderDeletableAtTheEnd;
+  AFileName := GetTempName(AFileName) + '.txt';
+  
+  FFiles := frmMain.ActiveFrame.CloneSelectedOrActiveFiles;
+  for I:= 0 to FFiles.Count - 1 do
+    AFileList.Add(FFiles[I].Name);
+
+  // Used as parent to prevent blocking of the main form
+  DummyForm := TfrmStatistics.Create(Self);
+  try
+    AFileList.SaveToFile(AFileName);
+    
+    if ShowMultiRenameWaitForm(AFileName, DummyForm) then
+    begin
+      LogFileName := gMulRenLogFilename;
+      
+      FLog := TStringListEx.Create;
+      FLog.Add('>>> [' + DateTimeToStr(Now) + ']');
+      
+      AFileListResult:= TStringListEx.Create;
+      AFileListResult.LoadFromFile(AFileName);
+      
+      if AFileListResult.Count <> FFiles.Count then
+      begin
+        msgError(Format(rsMulRenWrongLinesNumber, [AFileListResult.Count, FFiles.Count]));
+      end
+      else
+      begin
+        for I:= 0 to AFileListResult.Count - 1 do
+        begin
+          FileNameSource := FFiles[I].FullPath;
+          FileNameResult := ExtractFilePath(FileNameSource) + AFileListResult[I];
+          S := FileNameSource + ' -> ' + FileNameResult;
+          
+          // Rename if result file doesn't exist or the case is changed
+          if not mbFileExists(FileNameResult)
+             or (FileNameSource <> FileNameResult) and (UTF8LowerCase(FileNameSource) = UTF8LowerCase(FileNameResult))
+          then begin
+            RenameResult := mbRenameFile(FileNameSource, FileNameResult);
+
+            if RenameResult then
+              S := 'OK      ' + S
+            else
+              S := 'ERROR   ' + S;
+          end
+          else if FileNameSource <> FileNameResult then
+            S := 'EXISTS  ' + S
+          else
+            S := 'SKIP    ' + S;
+          
+          FLog.Add(S);
+        end;
+        FLog.Add('');
+      end;
+      
+      frmMain.ActiveFrame.MarkFiles(False);
+      
+      AFileListResult.Free;
+      
+      try
+        if FileExists(mbExpandFileName(LogFileName)) then
+        begin
+          LogFileStream := TFileStream.Create(mbExpandFileName(LogFileName), fmOpenWrite);
+          try
+            LogFileStream.Seek(0, soEnd);
+            FLog.SaveToStream(LogFileStream);
+          finally
+            LogFileStream.Free;
+          end;
+        end
+        else
+        begin
+          FLog.SaveToFile(mbExpandFileName(LogFileName));
+        end;
+      except
+        on E: Exception do
+          msgError(E.Message);
+      end;
+      FLog.Free;
+      
+    end;
+  except
+    on E: Exception do msgError(E.Message);
+  end;
+  
+  DummyForm.Free;
+  AFileList.Free;
 end;
 
 end.
