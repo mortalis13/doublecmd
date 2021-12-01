@@ -1126,6 +1126,7 @@ begin
         'Ctrl+8','','index=8','',
         'Ctrl+9','','index=9',''],
       'cm_OpenDriveByIndex');
+      AddIfNotExists(['F11'],[],'cm_MaximizePanel');
 
       if HotMan.Version < 38 then
       begin

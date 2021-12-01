@@ -371,6 +371,7 @@ type
    procedure cm_AddPlugin(const Params: array of string);
 
    procedure cm_JumpToPrevTabInStack(const Params: array of String);
+   procedure cm_MaximizePanel(const Params: array of String);
    procedure cm_ToggleFreeSorting(const Params: array of String);
    procedure cm_ToggleAliasMode(const Params: array of String);
 
@@ -406,7 +407,7 @@ uses fOptionsPluginsBase, fOptionsPluginsDSX, fOptionsPluginsWCX,
      {$ELSE}
      , uColumnsFileView
      {$ENDIF}
-     , fStatistics;
+     , fStatistics, ExtCtrls, uColumns;
 
 resourcestring
   rsFavoriteTabs_SetupNotExist = 'No setup named "%s"';
@@ -5382,6 +5383,48 @@ begin
       if Editor.CanFocus then Editor.SetFocus;
       TfrmOptionsPluginsBase(Editor).ActualAddPlugin(sPluginFilename);
     end;
+  end;
+end;
+
+procedure TMainCommands.cm_MaximizePanel(const Params: array of String);
+var 
+    activeColumnsView: TColumnsFileView;
+    ColumnsClass: TPanelColumnsClass;
+    colWidthParam: String;
+    notActivePanel: TPanel;
+    notActiveDiskPanel: TPanel;
+    commaPos, strLen: Integer;
+    splitPos, colId, colWidth: Integer;
+begin
+  activeColumnsView := frmMain.LeftTabs.ActivePage.FileView as TColumnsFileView;
+  ColumnsClass := ColSet.GetColumnSet(activeColumnsView.ActiveColm);
+
+  if frmMain.NotActiveFrame = frmMain.FrameLeft then
+  begin
+    notActivePanel := frmMain.pnlLeft;
+    notActiveDiskPanel := frmMain.pnlDskLeft;
+    splitPos := 0;
+  end
+  else
+  begin
+    notActivePanel := frmMain.pnlRight;  
+    notActiveDiskPanel := frmMain.pnlDskRight;
+    splitPos := 100;
+  end;
+  
+  if notActivePanel.IsVisible then
+  begin
+    notActivePanel.Hide;
+    notActiveDiskPanel.Hide;
+    frmMain.MainSplitter.Hide;
+    DoPanelsSplitterPerPos(splitPos);
+  end
+  else
+  begin
+    DoPanelsSplitterPerPos(50);
+    notActivePanel.Show;
+    notActiveDiskPanel.Show;
+    frmMain.MainSplitter.Show;
   end;
 end;
 
