@@ -2525,6 +2525,7 @@ var
   Param, ParamTrashCan: String;
   BoolValue: Boolean;
   QueueId: TOperationsManagerQueueIdentifier = FreeOperationsQueueId;
+  bSkipErrors: Boolean = False;
 begin
   with frmMain.ActiveFrame do
   begin
@@ -2547,6 +2548,8 @@ begin
         bRecycle := gUseTrash
       else if Param = 'recyclesettingrev' then
         bRecycle := not gUseTrash
+      else if Param = 'SkipErrors' then
+        bSkipErrors := True
       else if GetParamValue(Param, 'trashcan', ParamTrashCan) then
       begin
         if ParamTrashCan = 'setting' then
@@ -2649,6 +2652,7 @@ begin
           if Operation is TFileSystemDeleteOperation then
             with Operation as TFileSystemDeleteOperation do
             begin
+              if bSkipErrors then SkipErrors := True;
               // 30.04.2009 - передаем параметр корзины в поток.
               Recycle := bRecycle;
             end;
