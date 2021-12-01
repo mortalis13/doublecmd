@@ -369,7 +369,8 @@ type
    procedure cm_ConfigPlugins(const {%H-}Params: array of string);
    procedure cm_OpenDriveByIndex(const Params: array of string);
    procedure cm_AddPlugin(const Params: array of string);
-   
+
+   procedure cm_JumpToPrevTabInStack(const Params: array of String);
    procedure cm_ToggleFreeSorting(const Params: array of String);
    procedure cm_ToggleAliasMode(const Params: array of String);
 
@@ -5381,6 +5382,17 @@ begin
       if Editor.CanFocus then Editor.SetFocus;
       TfrmOptionsPluginsBase(Editor).ActualAddPlugin(sPluginFilename);
     end;
+  end;
+end;
+
+procedure TMainCommands.cm_JumpToPrevTabInStack(const Params: array of String);
+var
+  Index: Integer;
+begin
+  if gPrevTabInStackId <> -1 then
+  begin
+    Index := gPrevTabInStackId;
+    frmMain.ActiveNotebook.ActivateTabByIndex(Index);
   end;
 end;
 

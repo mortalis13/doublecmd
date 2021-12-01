@@ -555,6 +555,7 @@ type
     actResaveFavoriteTabs: TAction;
     
     actToggleFreeSorting: TAction;
+    actJumpToPrevTabInStack: TAction;
     actToggleAliasMode: TAction;
     
     mnuToggleAliasMode: TMenuItem;
@@ -641,6 +642,7 @@ type
     procedure nbPageMouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure nbPageChanged(Sender: TObject);
+    procedure nbPageChanging(Sender: TObject; var AllowChange: Boolean);
     procedure nbPageMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure NotebookDragDrop(Sender, Source: TObject; X, Y: Integer);
@@ -1049,6 +1051,7 @@ procedure TfrmMain.FormCreate(Sender: TObject);
     Result.OnMouseDown := @nbPageMouseDown;
     Result.OnMouseUp := @nbPageMouseUp;
     Result.OnChange := @nbPageChanged;
+    Result.OnChanging := @nbPageChanging;
     Result.OnDblClick := @pnlLeftRightDblClick;
     Result.OnDragOver:= @NotebookDragOver;
     Result.OnDragDrop:= @NotebookDragDrop;
@@ -2528,6 +2531,14 @@ begin
   UpdatePrompt;
   UpdateTreeViewPath;
   UpdateMainTitleBar;
+end;
+
+procedure TfrmMain.nbPageChanging(Sender: TObject; var AllowChange: Boolean);
+var
+  Notebook: TFileViewNotebook;
+begin
+  Notebook := Sender as TFileViewNotebook;
+  gPrevTabInStackId := Notebook.PageIndex;
 end;
 
 procedure TfrmMain.nbPageMouseUp(Sender: TObject; Button: TMouseButton;
