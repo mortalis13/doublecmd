@@ -225,6 +225,9 @@ const
   DropTextSimpleText_Index=3;
 
 var
+  gFreeSorting: Boolean = False;
+  gUseAliasCommands: Boolean = False;
+  
   { For localization }
   gPOFileName,
   gHelpLang: String;
@@ -3078,6 +3081,14 @@ begin
 
     { Directories HotList }
     gDirectoryHotlist.LoadFromXML(gConfig, Root);
+    
+    { Extended page }
+    Node := Root.FindNode('Extended');
+    if Assigned(Node) then
+    begin
+      gFreeSorting:= GetValue(Node, 'FreeSorting', gFreeSorting);
+      gUseAliasCommands:= GetValue(Node, 'UseAliasCommands', gUseAliasCommands);
+    end;
 
     { Viewer }
     Node := Root.FindNode('Viewer');
@@ -3703,6 +3714,12 @@ begin
 
     { Directories HotList }
     gDirectoryHotlist.SaveToXml(gConfig, Root, TRUE);
+    
+    { Extended page }
+    Node := FindNode(Root, 'Extended', True);
+    ClearNode(Node);
+    SetValue(Node, 'FreeSorting', gFreeSorting);
+    SetValue(Node, 'UseAliasCommands', gUseAliasCommands);
 
     { Viewer }
     Node := FindNode(Root, 'Viewer',True);
