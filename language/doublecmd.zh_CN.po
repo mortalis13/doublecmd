@@ -5865,10 +5865,6 @@ msgstr "哈希计算缓冲区大小（单位：KB）(&H)："
 msgid "Show operations progress &initially in"
 msgstr "初始操作进度显示在(&I)"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgid "Duplicated name auto-rename style:"
-msgstr "文件重复时自动重命名样式："
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgid "&Number of wipe passes:"
 msgstr "擦除次数(&N)："
@@ -13076,10 +13072,6 @@ msgstr "请输入保存工具提示文件类型配置的位置和文件名"
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr "工具提示文件类型名称"
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "DC 传统方式 - 副本 (x) 文件名.扩展名;窗口 - 文件名 (x).扩展名;其他 - 文件名 (x).扩展名"
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"

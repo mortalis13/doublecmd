@@ -5876,10 +5876,6 @@ msgstr "Velikost &medpomnilnika za izračun nadzorne vsote (v KB):"
 msgid "Show operations progress &initially in"
 msgstr "Pokaži splošni napredek &dejavnosti v"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgid "Duplicated name auto-rename style:"
-msgstr "Slog samodejnega preimenovanja podvojenih datotek:"
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgid "&Number of wipe passes:"
 msgstr "Število prehodov &neobnovljivega brisanja:"
@@ -13118,10 +13114,6 @@ msgstr ""
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr ""
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "opuščen slog DC – Kopija (x) ime_datoteke.pri;slog Windows – ime datoteke (x).pri;skrčen slog – ime_datoteke(x).pri"
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"

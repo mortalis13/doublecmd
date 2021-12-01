@@ -5922,11 +5922,6 @@ msgstr "Puffergröße für die &Hash-Kalkulation (in KB):"
 msgid "Show operations progress &initially in"
 msgstr "Operationsfortschritt anzeigen in"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgctxt "tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption"
-msgid "Duplicated name auto-rename style:"
-msgstr "Doppelte Dateinamen automatisch so erweitern:"
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgctxt "TFRMOPTIONSFILEOPERATIONS.LBLWIPEPASSNUMBER.CAPTION"
 msgid "&Number of wipe passes:"
@@ -13225,10 +13220,6 @@ msgstr "Speicherort und Dateiname für die Konfiguration des Tooltip-Dateityps e
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr "Name des Tooltip-Dateityps"
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "DC bisher: \"Kopie (x) Dateiname.erw\";Windows: \"Dateiname (x).erw\";Andere: \"Dateiname(x).erw\""
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"

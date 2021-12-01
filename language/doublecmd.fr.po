@@ -5985,11 +5985,6 @@ msgstr "Taille du tampon pour le calcul de signature (en KB) :"
 msgid "Show operations progress &initially in"
 msgstr "Montre la progression des opérations dans"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgctxt "tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption"
-msgid "Duplicated name auto-rename style:"
-msgstr "Méthode de renommage automatique des fichiers à dupliquer :"
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgid "&Number of wipe passes:"
 msgstr "Nombre de cycles de pulvérisation :"
@@ -13313,10 +13308,6 @@ msgstr "Entrez l'emplacement et le nom du fichier où enregistrer la configurati
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr "Nom du type de fichier info-bulle"
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "DC classique - Copy (x) nom_de_fichier.ext;Windows - nom_de_fichier (x).ext;Autre - nom_de_fichier(x).ext"
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"

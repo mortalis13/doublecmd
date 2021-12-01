@@ -5821,10 +5821,6 @@ msgstr "Rozmiar bufora dla obliczania &hash (w KB):"
 msgid "Show operations progress &initially in"
 msgstr "Pokaż postęp operacji po&czątkowo w"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgid "Duplicated name auto-rename style:"
-msgstr "Styl automatycznej zmiany zduplikowanej nazwy:"
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgid "&Number of wipe passes:"
 msgstr "&Liczba przebiegów wymazywania:"
@@ -12973,10 +12969,6 @@ msgstr "Wprowadź lokalizację i nazwę pliku do zapisania konfiguracji etykiete
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr "Nazwa pliku etykietek podpowiedzi"
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "Starsza wersja DC - Kopiuj (x) nazwapliku.roz;Windows - nazwapliku (x).roz;Inne - nazwapliku(x).roz"
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"

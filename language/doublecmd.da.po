@@ -6367,11 +6367,6 @@ msgid "Show operations progress &initially in"
 msgstr "Vis handlingernes fremskridt i:"
 
 # Opsætning - Indstillinger - Filhandlinger
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgid "Duplicated name auto-rename style:"
-msgstr "Stil for auto-omdøbning af dubletter:"
-
-# Opsætning - Indstillinger - Filhandlinger
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgid "&Number of wipe passes:"
 msgstr "A&ntal overskrivninger ved sikker sletning:"
@@ -14180,10 +14175,6 @@ msgstr "Indtast placering og filnavn, hvor du vil gemme konfiguration af værkt�
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr "Navn på værktæjshjælpe-filtype"
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "Ældre DC - Kopier (x) filnavn.ext;Windows - filnavn (x).ext;Andre - filnavn(x).ext"
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"

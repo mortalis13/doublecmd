@@ -6029,11 +6029,6 @@ msgstr "&Bufferstørrelse for hashutregning (i KB):"
 msgid "Show operations progress &initially in"
 msgstr "&Vis framdrift for handlingene i"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgctxt "tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption"
-msgid "Duplicated name auto-rename style:"
-msgstr "Prinsipp for auto-omdøping av dubletter:"
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgctxt "TFRMOPTIONSFILEOPERATIONS.LBLWIPEPASSNUMBER.CAPTION"
 msgid "&Number of wipe passes:"
@@ -13576,10 +13571,6 @@ msgstr "Tast plassering og filnavn der oppsett for filtype-hint skal lagres"
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr "Vis hint for filer i filvindu"
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "Tradisjonell DC - Kopi (x) filnavn.ext;Windows - filnavn (x).ext;Andre - filnavn(x).ext"
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"

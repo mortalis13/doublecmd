@@ -5950,11 +5950,6 @@ msgstr "Μέγεθος ενδιάμεσης μνήμης για υπολογισ
 msgid "Show operations progress &initially in"
 msgstr "Εμφάνιση προόδου εργασιών αρχικά σε"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgctxt "TFRMOPTIONSFILEOPERATIONS.LBLTYPEOFDUPLICATEDRENAME.CAPTION"
-msgid "Duplicated name auto-rename style:"
-msgstr "Στυλ αυτόματης μετονομασίας διπλότυπων:"
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgid "&Number of wipe passes:"
 msgstr "Αριθμός περασμάτων ασφαλούς διαγραφής:"
@@ -13263,10 +13258,6 @@ msgstr "Εισαγωγή τοποθεσίας και ονόματος αρχεί
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr "Όνομα τύπου αρχείου υπόδειξης"
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "DC legacy - Αντιγραφή (x) όνομα_αρχείου.επέκταση;Windows - όνομα_αρχείου (x).επέκταση;Άλλα - όνομα_αρχείου(x).επέκταση"
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"

@@ -5847,10 +5847,6 @@ msgstr "Памер буферу для падліку &хэшу (Кб):"
 msgid "Show operations progress &initially in"
 msgstr "Паказваць прагрэс апе&рацый у"
 
-#: tfrmoptionsfileoperations.lbltypeofduplicatedrename.caption
-msgid "Duplicated name auto-rename style:"
-msgstr "Стыль аўтаматычнай змены супадаючых назваў:"
-
 #: tfrmoptionsfileoperations.lblwipepassnumber.caption
 msgid "&Number of wipe passes:"
 msgstr "&Колькасць перазапісаў пры сціранні:"
@@ -13010,10 +13006,6 @@ msgstr "Пазначце размяшчэнне і назву файла для 
 #: ulng.rsopttooltipsfiletypename
 msgid "Tooltip file type name"
 msgstr "Назва"
-
-#: ulng.rsopttypeofduplicatedrename
-msgid "DC legacy - Copy (x) filename.ext;Windows - filename (x).ext;Other - filename(x).ext"
-msgstr "Стандартны DC - Копія (x) назва файла.тып;Windows - назва файла (x).тып;Іншы - назва файла (x).тып"
 
 #: ulng.rsoptupdatedfilesposition
 msgid "don't change position;use the same setting as for new files;to sorted position"
