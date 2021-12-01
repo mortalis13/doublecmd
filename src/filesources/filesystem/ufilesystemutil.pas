@@ -101,6 +101,9 @@ type
 
     FCurrentFile: TFile;
     FCurrentTargetFilePath: String;
+    
+    FProcessFoldersOnly: Boolean;
+    FProcessTopFoldersOnly: Boolean;
 
     AskQuestion: TAskQuestionFunction;
     AbortOperation: TAbortOperationFunction;
@@ -169,6 +172,8 @@ type
     property CopyAttributesOptions: TCopyAttributesOptions read FCopyAttributesOptions write FCopyAttributesOptions;
     property CorrectSymLinks: Boolean read FCorrectSymLinks write FCorrectSymLinks;
     property RenameMask: String read FRenameMask write FRenameMask;
+    property ProcessFoldersOnly: Boolean read FProcessFoldersOnly write FProcessFoldersOnly;
+    property ProcessTopFoldersOnly: Boolean read FProcessTopFoldersOnly write FProcessTopFoldersOnly;
   end;
 
 implementation
@@ -1137,14 +1142,19 @@ begin
         fsourIgnoreAll: FMaxPathOption := fsourIgnore;
       end;
     end;
-
-    if aFile.IsLink then
-      ProcessedOk := ProcessLink(CurrentSubNode, TargetName)
-    else if aFile.IsDirectory then
-      ProcessedOk := ProcessDirectory(CurrentSubNode, TargetName)
-    else
-      ProcessedOk := ProcessFile(CurrentSubNode, TargetName);
-
+    
+    if aFile.IsDirectory then
+    begin
+      ProcessedOk := ProcessDirectory(CurrentSubNode, TargetName);
+    end
+    else if not ProcessFoldersOnly and not ProcessTopFoldersOnly then
+    begin
+      if aFile.IsLink then
+        ProcessedOk := ProcessLink(CurrentSubNode, TargetName)
+      else
+        ProcessedOk := ProcessFile(CurrentSubNode, TargetName);
+    end;
+    
     if not ProcessedOk then
       Result := False
     // Process comments if need
@@ -1226,8 +1236,11 @@ begin
           // Create target directory.
           if CreateDirectoryUAC(AbsoluteTargetFileName) then
           begin
-            // Copy/Move all files inside.
-            Result := ProcessNode(aNode, IncludeTrailingPathDelimiter(AbsoluteTargetFileName));
+            if not ProcessTopFoldersOnly then
+              // Copy/Move all files inside.
+              Result := ProcessNode(aNode, IncludeTrailingPathDelimiter(AbsoluteTargetFileName))
+            else
+              Result := True;
             // Copy attributes after copy/move directory contents, because this operation can change date/time
             CopyProperties(aNode.TheFile, AbsoluteTargetFileName);
           end
