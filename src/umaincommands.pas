@@ -74,7 +74,7 @@ type
    procedure DoPanelsSplitterPerPos(SplitPos: Integer);
    procedure DoUpdateFileView(AFileView: TFileView; {%H-}UserData: Pointer);
    procedure DoCloseTab(Notebook: TFileViewNotebook; PageIndex: Integer);
-   procedure DoCopySelectedFileNamesToClipboard(FileView: TFileView; TypeOfCopy: TCopyFileNamesToClipboard);
+   procedure DoCopySelectedFileNamesToClipboard(FileView: TFileView; TypeOfCopy: TCopyFileNamesToClipboard; UnixStyle: Boolean = False);
    procedure DoNewTab(Notebook: TFileViewNotebook);
    procedure DoRenameTab(Page: TFileViewPage);
    procedure DoContextMenu(Panel: TFileView; X, Y: Integer; Background: Boolean; UserWishForContextMenu:TUserWishForContextMenu = uwcmComplete);
@@ -642,7 +642,7 @@ begin
   end;
 end;
 
-procedure TMainCommands.DoCopySelectedFileNamesToClipboard(FileView: TFileView; TypeOfCopy: TCopyFileNamesToClipboard);
+procedure TMainCommands.DoCopySelectedFileNamesToClipboard(FileView: TFileView; TypeOfCopy: TCopyFileNamesToClipboard; UnixStyle: Boolean);
 var
   I: Integer;
   sl: TStringList = nil;
@@ -675,6 +675,11 @@ begin
               end;
 
               if TypeOfCopy=cfntcPathWithoutSeparator then PathToAdd:=ExcludeTrailingPathDelimiter(PathToAdd);
+              
+              if UnixStyle then
+              begin
+                PathToAdd := ReplaceStr(PathToAdd, '\', '/');
+              end;
             end;
         end;
 
@@ -1039,8 +1044,15 @@ begin
 end;
 
 procedure TMainCommands.cm_CopyFullNamesToClip(const Params: array of string);
+var bUnixSeparator: Boolean = False;
+    Param: String;
 begin
-  DoCopySelectedFileNamesToClipboard(frmMain.ActiveFrame, cfntcPathAndFileNames);
+  for Param in Params do
+  begin
+    if Param = 'UnixSeparator' then bUnixSeparator := True;
+  end;
+  
+  DoCopySelectedFileNamesToClipboard(frmMain.ActiveFrame, cfntcPathAndFileNames, bUnixSeparator);
 end;
 
 procedure TMainCommands.cm_CopyFileDetailsToClip(const Params: array of string);
@@ -4594,14 +4606,28 @@ end;
 
 { TMainCommands.cm_CopyPathOfFilesToClip }
 procedure TMainCommands.cm_CopyPathOfFilesToClip(const Params: array of string);
+var bUnixSeparator: Boolean = False;
+    Param: String;
 begin
-  DoCopySelectedFileNamesToClipboard(frmMain.ActiveFrame, cfntcJustPathWithSeparator);
+  for Param in Params do
+  begin
+    if Param = 'UnixSeparator' then bUnixSeparator := True;
+  end;
+  
+  DoCopySelectedFileNamesToClipboard(frmMain.ActiveFrame, cfntcJustPathWithSeparator, bUnixSeparator);
 end;
 
 { TMainCommands.cm_CopyPathNoSepOfFilesToClip }
 procedure TMainCommands.cm_CopyPathNoSepOfFilesToClip(const Params: array of string);
+var bUnixSeparator: Boolean = False;
+    Param: String;
 begin
-  DoCopySelectedFileNamesToClipboard(frmMain.ActiveFrame, cfntcPathWithoutSeparator);
+  for Param in Params do
+  begin
+    if Param = 'UnixSeparator' then bUnixSeparator := True;
+  end;
+  
+  DoCopySelectedFileNamesToClipboard(frmMain.ActiveFrame, cfntcPathWithoutSeparator, bUnixSeparator);
 end;
 
 { TMainCommands.cm_DoAnyCmCommand }
