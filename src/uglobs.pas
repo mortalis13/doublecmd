@@ -225,6 +225,7 @@ const
   DropTextSimpleText_Index=3;
 
 var
+  gPrevTabInStackId: Integer;
   gFreeSorting: Boolean = False;
   gUseAliasCommands: Boolean = False;
   
