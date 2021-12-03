@@ -546,7 +546,6 @@ var
   gInplaceRenameButton,
   gDblClickToParent,
   gGoToRoot: Boolean;
-  gShowCurDirTitleBar: Boolean;
   gActiveRight: Boolean;
   gShowToolTip: Boolean;
   gShowToolTipMode: TToolTipMode;
@@ -1984,7 +1983,6 @@ begin
   { Miscellaneous page }
   gGridVertLine := False;
   gGridHorzLine := False;
-  gShowCurDirTitleBar := False;
   gShowWarningMessages := True;
   gSpaceMovesDown := False;
   gDirBrackets := True;
@@ -2559,7 +2557,6 @@ begin
     if Assigned(Node) then
     begin
       gGoToRoot := GetValue(Node, 'GoToRoot', gGoToRoot);
-      gShowCurDirTitleBar := GetValue(Node, 'ShowCurDirTitleBar', gShowCurDirTitleBar);
       gActiveRight := GetValue(Node, 'ActiveRight', gActiveRight);
 
       //Trick to split initial legacy command for terminal
@@ -3348,7 +3345,6 @@ begin
     Node := FindNode(Root, 'Behaviours', True);
     ClearNode(Node);
     SetValue(Node, 'GoToRoot', gGoToRoot);
-    SetValue(Node, 'ShowCurDirTitleBar', gShowCurDirTitleBar);
     SetValue(Node, 'ActiveRight', gActiveRight);
     SetValue(Node, 'RunInTerminalStayOpenCmd', gRunInTermStayOpenCmd);
     SetValue(Node, 'RunInTerminalStayOpenParams', gRunInTermStayOpenParams);
