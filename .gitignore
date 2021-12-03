@@ -1,6 +1,5 @@
 # Lazarus compiler-generated binaries (safe to delete)
 *.exe
-*.dll
 *.so
 *.dylib
 *.lrs
@@ -31,3 +30,7 @@ lib/
 
 # Application bundle for Mac OS
 *.app/
+
+plugins/**/lib/
+units/*
+*.log
