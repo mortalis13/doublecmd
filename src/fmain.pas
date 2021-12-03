@@ -1073,14 +1073,7 @@ procedure TfrmMain.FormCreate(Sender: TObject);
     ServernameString := '';
     if Length(UniqueInstance.ServernameByUser) > 0 then
       ServernameString := ' [' + UniqueInstance.ServernameByUser + ']';
-
-    Result := Format('%s%s %s build %s; %s',
-        ['Double Commander',
-        ServernameString,
-        dcVersion,
-        dcRevision,
-        dcBuildDate]
-    );
+    Result := Format('%s%s %s %s %s', ['Double Commander', ServernameString, dcVersion, dcCommit, TargetOS]);
   end;
 
 var
@@ -6393,21 +6386,10 @@ begin
 end;
 
 procedure TfrmMain.UpdateMainTitleBar;
-var sTmp: String;
+var CurrentPath: String;
 begin
-    if gShowCurDirTitleBar and (fspDirectAccess in ActiveFrame.FileSource.Properties) then
-    begin
-        sTmp := ActiveFrame.CurrentPath;
-        Self.Caption:= Format('%s (%s) - %s',
-            [GetLastDir(sTmp),
-            sTmp,
-            sStaticTitleBarString]
-            );
-    end
-    else
-    begin
-        Self.Caption := sStaticTitleBarString;
-    end;
+  CurrentPath := ExcludeTrailingBackslash(ActiveFrame.CurrentLocation);
+  Self.Caption:= Format('%s - %s', [CurrentPath, sStaticTitleBarString]);
 end;
 
 procedure TfrmMain.UpdateGUIFunctionKeys;
