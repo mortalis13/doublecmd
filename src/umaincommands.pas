@@ -372,6 +372,7 @@ type
 
    procedure cm_JumpToPrevTabInStack(const Params: array of String);
    procedure cm_MaximizePanel(const Params: array of String);
+   procedure cm_OpenParentFolderExternal(const Params: array of String);
    procedure cm_ToggleFreeSorting(const Params: array of String);
    procedure cm_ToggleAliasMode(const Params: array of String);
 
@@ -5436,6 +5437,25 @@ begin
   begin
     Index := gPrevTabInStackId;
     frmMain.ActiveNotebook.ActivateTabByIndex(Index);
+  end;
+end;
+
+procedure TMainCommands.cm_OpenParentFolderExternal(const Params: array of String);
+var
+  aFile: TFile;
+begin
+  with frmMain.ActiveFrame do
+  begin
+    aFile := CloneActiveFile;
+    if Assigned(aFile) then
+    try
+      if aFile.IsNameValid then
+      begin
+        ShellExecute(aFile.Path);
+      end;
+    finally
+      FreeAndNil(aFile);
+    end;
   end;
 end;
 
