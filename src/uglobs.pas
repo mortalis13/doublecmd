@@ -1107,7 +1107,6 @@ begin
       AddIfNotExists(['Ctrl+PgDn'],[],'cm_OpenArchive');
       AddIfNotExists(['Ctrl+PgUp'],[],'cm_ChangeDirToParent');
       AddIfNotExists(['Ctrl+Alt+Enter'],[],'cm_ShellExecute');
-      AddIfNotExists(['Ctrl+Shift+B'],[],'cm_FlatViewSel');
       AddIfNotExists(['Ctrl+Shift+C'],[],'cm_CopyFullNamesToClip');
       AddIfNotExists(['Ctrl+Shift+D'],[],'cm_ConfigDirHotList');
       AddIfNotExists(['Ctrl+Shift+H'],[],'cm_HorizontalFilePanels');
@@ -1164,7 +1163,9 @@ begin
         'Ctrl+8','','index=8','',
         'Ctrl+9','','index=9',''],
       'cm_OpenDriveByIndex');
+
       AddIfNotExists(['F11'],[],'cm_MaximizePanel');
+      AddIfNotExists(['Ctrl+Shift+B'],[],'cm_OpenParentFolderExternal');
 
       if HotMan.Version < 38 then
       begin
