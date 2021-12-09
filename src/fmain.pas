@@ -6884,18 +6884,15 @@ begin
   if FDelayedEventCtr > 0 then
     Exit;
   { update restored bounds }
-  if WindowState = wsNormal then
+  if FDelayedWMMove then
     begin
-      if FDelayedWMMove then
-        begin
-          FRestoredLeft := Left;
-          FRestoredTop := Top;
-        end;
-      if FDelayedWMSize then
-        begin
-          FRestoredWidth := Width;
-          FRestoredHeight := Height;
-        end;
+      FRestoredLeft := Left;
+      FRestoredTop := Top;
+    end;
+  if FDelayedWMSize then
+    begin
+      FRestoredWidth := Width;
+      FRestoredHeight := Height;
     end;
   FDelayedWMMove := False;
   FDelayedWMSize := False;
