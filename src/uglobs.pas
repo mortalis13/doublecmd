@@ -225,6 +225,8 @@ const
   DropTextSimpleText_Index=3;
 
 var
+  gCurrentMonitorDpi: Integer = 96;
+  
   gPrevTabInStackId: Integer;
   gFreeSorting: Boolean = False;
   gUseAliasCommands: Boolean = False;

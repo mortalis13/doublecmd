@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="12"/>
+    <Version Value="11"/>
     <PathDelim Value="\"/>
     <General>
       <Flags>
         <SaveClosedFiles Value="False"/>
         <MainUnitHasUsesSectionForAllUnits Value="False"/>
-        <CompatibilityMode Value="True"/>
       </Flags>
       <SessionStorage Value="InProjectDir"/>
+      <MainUnit Value="0"/>
       <AutoCreateForms Value="False"/>
       <Title Value="Double Commander"/>
+      <Scaled Value="True"/>
       <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
       <XPManifest>
-        <DpiAware Value="True"/>
+        <DpiAware Value="True/PM"/>
       </XPManifest>
       <Icon Value="0"/>
     </General>
@@ -74,54 +76,6 @@
           </Other>
         </CompilerOptions>
       </Item2>
-      <Item5 Name="Silent">
-        <CompilerOptions>
-          <Version Value="11"/>
-          <PathDelim Value="\"/>
-          <Target>
-            <Filename Value="..\doublecmd"/>
-          </Target>
-          <SearchPaths>
-            <IncludeFiles Value="$(LazarusDir)\ide;$(ProjOutDir);..\sdk;..\units"/>
-            <OtherUnitFiles Value="platform;platform\$(SrcOS);platform\$(SrcOS)\$(TargetOS);..\sdk;frames;fileviews;filesources;filesources\filesystem;filesources\multiarchive;filesources\multilist;filesources\searchresult;filesources\tempfilesystem;filesources\vfs;filesources\wcxarchive;filesources\wfxplugin;filesources\winnet;platform\unix\glib;platform\unix\mime;filesources\gio;rpc;rpc\sys\$(SrcOS);rpc\sys;filesources\recyclebin"/>
-            <UnitOutputDirectory Value="..\units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
-            <SrcPath Value="$(LazarusDir)\lcl;$(LazarusDir)\lcl\interfaces\$(LCLWidgetType);$(fpcsrcdir)\packages\fcl-base\src"/>
-          </SearchPaths>
-          <Parsing>
-            <SyntaxOptions>
-              <IncludeAssertionCode Value="True"/>
-            </SyntaxOptions>
-          </Parsing>
-          <CodeGeneration>
-            <Checks>
-              <IOChecks Value="True"/>
-              <RangeChecks Value="True"/>
-              <OverflowChecks Value="True"/>
-            </Checks>
-            <Optimizations>
-              <OptimizationLevel Value="0"/>
-            </Optimizations>
-          </CodeGeneration>
-          <Linking>
-            <Debugging>
-              <DebugInfoType Value="dsDwarf2Set"/>
-              <UseHeaptrc Value="True"/>
-            </Debugging>
-          </Linking>
-          <Other>
-            <Verbosity>
-              <ShowWarn Value="False"/>
-              <ShowNotes Value="False"/>
-              <ShowHints Value="False"/>
-            </Verbosity>
-            <CustomOptions Value="-dHEAPTRC -dHEAPTRC_EXTRA"/>
-            <ExecuteBefore>
-              <Command Value="$(ProjPath)\platform\git2revisioninc$(ExeExt).cmd $MakeFile($(ProjOutDir))"/>
-              <CompileReasons Run="False"/>
-            </ExecuteBefore>
-          </Other>
-        </CompilerOptions>
-      </Item5>
       <Item3 Name="NoDebug Full Optimizations">
         <CompilerOptions>
           <Version Value="11"/>
@@ -174,25 +128,25 @@
             <UnitOutputDirectory Value="..\units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
             <SrcPath Value="$(LazarusDir)\lcl;$(LazarusDir)\lcl\interfaces\$(LCLWidgetType);$(fpcsrcdir)\packages\fcl-base\src"/>
           </SearchPaths>
-          <Conditionals Value="if (TargetOS = &apos;linux&apos;) then
+          <Conditionals Value="if (TargetOS = 'linux') then
 begin
-  LinkerOptions += &apos; -z relro --as-needed&apos;;
+  LinkerOptions += ' -z relro --as-needed';
 end;
 
-if LCLWidgetType &lt;> GetIDEValue(&apos;LCLWidgetType&apos;) then
+if LCLWidgetType &lt;> GetIDEValue('LCLWidgetType') then
 begin
-  UnitPath += &apos;$(FallbackOutputRoot)/LazControls/lib/$(TargetCPU)-$(TargetOS)/$(LCLWidgetType);&apos;;
-  UnitPath += &apos;$(FallbackOutputRoot)/SynEdit/units/$(TargetCPU)-$(TargetOS)/$(LCLWidgetType);&apos;;
+  UnitPath += '$(FallbackOutputRoot)/LazControls/lib/$(TargetCPU)-$(TargetOS)/$(LCLWidgetType);';
+  UnitPath += '$(FallbackOutputRoot)/SynEdit/units/$(TargetCPU)-$(TargetOS)/$(LCLWidgetType);';
 end;
 
-if ((LCLWidgetType = &apos;qt&apos;) or (LCLWidgetType = &apos;qt5&apos;)) and (TargetOS &lt;> &apos;darwin&apos;) then
+if ((LCLWidgetType = 'qt') or (LCLWidgetType = 'qt5')) and (TargetOS &lt;> 'darwin') then
 begin
-  UnitPath += &apos;platform/$(SrcOS)/qt5;&apos;;
+  UnitPath += 'platform/$(SrcOS)/qt5;';
 end;
 
-if (LCLWidgetType = &apos;gtk2&apos;) and (SrcOS = &apos;unix&apos;) and (TargetOS &lt;> &apos;darwin&apos;) then
+if (LCLWidgetType = 'gtk2') and (SrcOS = 'unix') and (TargetOS &lt;> 'darwin') then
 begin
-  UnitPath += &apos;platform/$(SrcOS)/$(LCLWidgetType);&apos;;
+  UnitPath += 'platform/$(SrcOS)/$(LCLWidgetType);';
 end;"/>
           <Parsing>
             <SyntaxOptions>
@@ -235,19 +189,67 @@ end;"/>
           </Other>
         </CompilerOptions>
       </Item4>
+      <Item5 Name="Silent">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <PathDelim Value="\"/>
+          <Target>
+            <Filename Value="..\doublecmd"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(LazarusDir)\ide;$(ProjOutDir);..\sdk;..\units"/>
+            <OtherUnitFiles Value="platform;platform\$(SrcOS);platform\$(SrcOS)\$(TargetOS);..\sdk;frames;fileviews;filesources;filesources\filesystem;filesources\multiarchive;filesources\multilist;filesources\searchresult;filesources\tempfilesystem;filesources\vfs;filesources\wcxarchive;filesources\wfxplugin;filesources\winnet;platform\unix\glib;platform\unix\mime;filesources\gio;rpc;rpc\sys\$(SrcOS);rpc\sys;filesources\recyclebin"/>
+            <UnitOutputDirectory Value="..\units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+            <SrcPath Value="$(LazarusDir)\lcl;$(LazarusDir)\lcl\interfaces\$(LCLWidgetType);$(fpcsrcdir)\packages\fcl-base\src"/>
+          </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <IncludeAssertionCode Value="True"/>
+            </SyntaxOptions>
+          </Parsing>
+          <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+            </Checks>
+            <Optimizations>
+              <OptimizationLevel Value="0"/>
+            </Optimizations>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <DebugInfoType Value="dsDwarf2Set"/>
+              <UseHeaptrc Value="True"/>
+            </Debugging>
+          </Linking>
+          <Other>
+            <Verbosity>
+              <ShowWarn Value="False"/>
+              <ShowNotes Value="False"/>
+              <ShowHints Value="False"/>
+            </Verbosity>
+            <CustomOptions Value="-dHEAPTRC -dHEAPTRC_EXTRA"/>
+            <ExecuteBefore>
+              <Command Value="$(ProjPath)\platform\git2revisioninc$(ExeExt).cmd $MakeFile($(ProjOutDir))"/>
+              <CompileReasons Run="False"/>
+            </ExecuteBefore>
+          </Other>
+        </CompilerOptions>
+      </Item5>
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
     </PublishOptions>
     <RunParams>
       <local>
-        <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
+        <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
       </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
         <Mode0 Name="default">
           <local>
-            <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T &apos;Lazarus Run Output&apos; -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
+            <LaunchingApplication PathPlusParams="\usr\X11R6\bin\xterm -T 'Lazarus Run Output' -e $(LazarusDir)\tools\runwait.sh $(TargetCmdLine)"/>
           </local>
         </Mode0>
       </Modes>
@@ -1956,9 +1958,9 @@ end;"/>
       <UnitOutputDirectory Value="..\units\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       <SrcPath Value="$(LazarusDir)\lcl;$(LazarusDir)\lcl\interfaces\$(LCLWidgetType);$(fpcsrcdir)\packages\fcl-base\src"/>
     </SearchPaths>
-    <Conditionals Value="if TargetOS = &apos;darwin&apos; then begin
-  UsageCustomOptions += &apos; -k-macosx_version_min -k10.5&apos;;
-  UsageCustomOptions += &apos; -XR/Developer/SDKs/MacOSX10.5.sdk/&apos;;
+    <Conditionals Value="if TargetOS = 'darwin' then begin
+  UsageCustomOptions += ' -k-macosx_version_min -k10.5';
+  UsageCustomOptions += ' -XR/Developer/SDKs/MacOSX10.5.sdk/';
 end;"/>
     <Parsing>
       <SyntaxOptions>
