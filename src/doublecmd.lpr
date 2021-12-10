@@ -125,6 +125,7 @@ begin
 
   // Fix default BidiMode
   // see http://bugs.freepascal.org/view.php?id=22044
+  Application.Scaled:=True;
   Application.BidiMode:= bdLeftToRight;
 
   Application.Title:='Double Commander';

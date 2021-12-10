@@ -3954,18 +3954,30 @@ begin
     Self.WindowState := wsMaximized;
 
   lastWindowState := WindowState;
+  gCurrentMonitorDpi := Screen.MonitorFromWindow(Handle).PixelsPerInch;
 end;
 
 procedure TfrmMain.WMMove(var Message: TLMMove);
+var
+  CurrentDpi: Integer;
 begin
   inherited WMMove(Message);
-
+  
   if not (csDestroying in ComponentState) then
   begin
     FDelayedWMMove := True;
     Inc(FDelayedEventCtr);
     Application.QueueAsyncCall(@DelayedEvent, 0);
+    
+    CurrentDpi := Screen.MonitorFromWindow(Handle).PixelsPerInch;
+    if gCurrentMonitorDpi <> CurrentDpi then
+    begin
+      gCurrentMonitorDpi := CurrentDpi;
+      dcdebug(Format('Monitor DPI Changed from %d to %d', [gCurrentMonitorDpi, CurrentDpi]));
+      UpdateWindowView;
+    end;
   end;
+  
 end;
 
 procedure TfrmMain.WMSize(var message: TLMSize);
@@ -4827,6 +4839,9 @@ begin
     dskPanel.Clear;
     dskPanel.Flat := gDriveBarFlat;
     Count := DrivesList.Count - 1;
+    
+    dskPanel.ButtonWidth  := MulDiv(50, Screen.MonitorFromWindow(Handle).PixelsPerInch, 96);
+    dskPanel.ButtonHeight := MulDiv(22, Screen.MonitorFromWindow(Handle).PixelsPerInch, 96);
 
     for I := 0 to Count do
     begin
@@ -4857,14 +4872,6 @@ begin
 
   finally
     dskPanel.EndUpdate;
-  end;
-  
-  if Count > 8 then Count := 8;
-  for i := 0 to Count do
-  begin
-    Button := dskPanel.Buttons[i];
-    Button.Width := 50;
-    Button.Margin := 15;
   end;
 end;
 
@@ -5281,6 +5288,8 @@ procedure TfrmMain.UpdateWindowView;
       for I := 0 to NoteBook.PageCount - 1 do  //  change on all tabs
         NoteBook.View[I].UpdateView;
     end;
+    
+    NoteBook.TabHeight := MulDiv(34, Screen.MonitorFromWindow(Handle).PixelsPerInch, 96);
   end;
 
   procedure AnchorHorizontalBetween(AControl, ALeftSibling, ARightSibling: TControl);
@@ -5334,9 +5343,16 @@ var
   HMForm: THMForm;
   FunButton: TSpeedButton;
   Hotkey: THotkey;
+  
+  aToolbarIconSize: Integer;
+  aToolbarButtonSize: Integer;
+  aDiskIconSize: Integer;
+  MonitorPixelsPerInch: Integer;
 begin
   DisableAutoSizing;
   try
+    MonitorPixelsPerInch := Screen.MonitorFromWindow(Handle).PixelsPerInch;
+    
     if gHorizontalFilePanels then
     begin
       pnlLeft.Align := alTop;
@@ -5355,13 +5371,16 @@ begin
       MiddleToolBar.Align:= alLeft;
       MiddleToolBar.Left:= pnlLeft.Width + 1;
     end;
-
+    
+    aToolbarIconSize := MulDiv(gToolBarIconSize, MonitorPixelsPerInch, Screen.PixelsPerInch);
+    aToolbarButtonSize := MulDiv(gToolBarButtonSize, MonitorPixelsPerInch, Screen.PixelsPerInch);
+    
     (* Middle Tool Bar *)
     MiddleToolbar.Visible:= gMiddleToolBar;
     MiddleToolbar.Flat:= gMiddleToolBarFlat;
-    MiddleToolbar.GlyphSize:= gMiddleToolBarIconSize;
+    MiddleToolbar.GlyphSize:= aToolbarIconSize;
     MiddleToolbar.ShowCaptions:= gMiddleToolBarShowCaptions;
-    MiddleToolbar.SetButtonSize(gMiddleToolBarButtonSize, gMiddleToolBarButtonSize);
+    MiddleToolbar.SetButtonSize(aToolbarButtonSize, aToolbarButtonSize);
     LoadToolbar(MiddleToolBar);
 
     pnlLeftResize(pnlLeft);
@@ -5381,10 +5400,12 @@ begin
 
     pnlRightResize(pnlRight);
 
-    dskLeft.GlyphSize:= gDiskIconsSize;
-    dskRight.GlyphSize:= gDiskIconsSize;
-    dskLeft.ButtonHeight:= gDiskIconsSize + 6;
-    dskRight.ButtonHeight:= gDiskIconsSize + 6;
+    aDiskIconSize := MulDiv(gDiskIconsSize, MonitorPixelsPerInch, Screen.PixelsPerInch);
+
+    dskLeft.GlyphSize:= aDiskIconSize;
+    dskRight.GlyphSize:= aDiskIconSize;
+    dskLeft.ButtonHeight:= aDiskIconSize + 6;
+    dskRight.ButtonHeight:= aDiskIconSize + 6;
 
     pnlDiskLeftInner.Visible := gHorizontalFilePanels and gDriveBar1 and gDriveBar2;
     pnlDiskRightInner.Visible := gHorizontalFilePanels and gDriveBar1 and gDriveBar2;
@@ -5410,9 +5431,9 @@ begin
     (*Main Tool Bar*)
     MainToolBar.Visible:= gButtonBar;
     MainToolBar.Flat:= gToolBarFlat;
-    MainToolBar.GlyphSize:= gToolBarIconSize;
+    MainToolBar.GlyphSize:= aToolbarIconSize;
     MainToolBar.ShowCaptions:= gToolBarShowCaptions;
-    MainToolBar.SetButtonSize(gToolBarButtonSize, gToolBarButtonSize);
+    MainToolBar.SetButtonSize(aToolbarButtonSize, aToolbarButtonSize);
     LoadToolbar(MainToolBar);
 
     btnLeftDrive.Visible := gDrivesListButton;
@@ -6129,8 +6150,9 @@ begin
   // Save window bounds and state
   ANode := gConfig.FindNode(gConfig.RootNode, 'MainWindow/Position', True);
   begin
-    gConfig.SetValue(ANode, 'Left', FRestoredLeft);
-    gConfig.SetValue(ANode, 'Top', FRestoredTop);
+    // When the window is in the left-top corner of the screen the coordinates are -8,-8
+    gConfig.SetValue(ANode, 'Left', FRestoredLeft + 15);
+    gConfig.SetValue(ANode, 'Top', FRestoredTop + 15);
     gConfig.SetValue(ANode, 'Width', FRestoredWidth);
     gConfig.SetValue(ANode, 'Height', FRestoredHeight);
     gConfig.SetValue(ANode, 'PixelsPerInch', Screen.PixelsPerInch);
@@ -6269,32 +6291,37 @@ procedure TfrmMain.UpdateDriveButtonSelection(DriveButton: TSpeedButton; FileVie
 var
   Drive: PDrive;
   BitmapTmp: Graphics.TBitmap = nil;
+  aDiskIconSize: Integer;
+  btnWidth: Integer;
 begin
   DriveButton.Tag := FindMatchingDrive(FileView.CurrentAddress, FileView.CurrentPath);
 
   if not gDrivesListButton then
     Exit;
 
+  aDiskIconSize := MulDiv(gDiskIconsSize, Screen.MonitorFromWindow(Handle).PixelsPerInch, Screen.PixelsPerInch);
+
   if DriveButton.Tag >= 0 then
   begin
     Drive := DrivesList[DriveButton.Tag];
     DriveButton.Caption := Drive^.DisplayName;
-    BitmapTmp := PixMapManager.GetDriveIcon(Drive, gDiskIconsSize, DriveButton.Color);
+    BitmapTmp := PixMapManager.GetDriveIcon(Drive, aDiskIconSize, DriveButton.Color);
   end
   else
   begin
     DriveButton.Caption := '';
 
     if FileView.FileSource.IsClass(TArchiveFileSource) then
-      BitmapTmp := PixMapManager.GetArchiveIcon(gDiskIconsSize, DriveButton.Color)
+      BitmapTmp := PixMapManager.GetArchiveIcon(aDiskIconSize, DriveButton.Color)
     else
-      BitmapTmp := PixMapManager.GetDefaultDriveIcon(gDiskIconsSize, DriveButton.Color);
+      BitmapTmp := PixMapManager.GetDefaultDriveIcon(aDiskIconSize, DriveButton.Color);
   end;
 
   DriveButton.Glyph := BitmapTmp;
 
-  DriveButton.Width := DriveButton.Glyph.Width
-                     + DriveButton.Canvas.TextWidth(DriveButton.Caption) + 24;
+  btnWidth := DriveButton.Glyph.Width + DriveButton.Canvas.TextWidth(DriveButton.Caption) + 24;
+  btnWidth := MulDiv(btnWidth, Screen.MonitorFromWindow(Handle).PixelsPerInch, 96);
+  DriveButton.Width := btnWidth;
 
   FreeAndNil(BitmapTmp);
 end;
@@ -6943,6 +6970,7 @@ var
   button: TKASToolButton;
   bCanvas: TCanvas;
   id: PtrInt;
+  textX, textY: Integer;
 begin
   button := Sender as TKASToolButton;
   bCanvas := button.Canvas;
@@ -6954,9 +6982,12 @@ begin
     bCanvas.Brush.Style := bsClear;
     bCanvas.Font.Size := 8;
     bCanvas.Font.Bold := True;
-    bCanvas.TextOut(4, 2, IntToStr(id));
+    
+    textX := MulDiv(4, Screen.MonitorFromWindow(Handle).PixelsPerInch, 96);
+    textY := MulDiv(2, Screen.MonitorFromWindow(Handle).PixelsPerInch, 96);
+    bCanvas.TextOut(textX, textY, IntToStr(id));
 
-    bCanvas.Font.Size := 0;
+    bCanvas.Font.Size := 9;
     bCanvas.Font.Bold := False;
   end;
 end;
