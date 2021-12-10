@@ -411,7 +411,6 @@ begin
   FCanChangePageIndex := True;
   FNotebookSide := NotebookSide;
   FStartDrag := False;
-
   {$IFDEF MSWINDOWS}
   // The pages contents are removed from drawing background in EraseBackground.
   // But double buffering could be enabled to eliminate flickering of drawing

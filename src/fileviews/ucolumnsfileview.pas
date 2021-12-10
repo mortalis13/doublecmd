@@ -653,6 +653,11 @@ var
   X: Integer;
   AColumnsFunctions: String;
   ColumnsClass: TPanelColumnsClass;
+  
+  MonitorPixelsPerInch: Integer;
+  WinNode: TXmlNode;
+  WinLeft: Integer;
+  WinTop: Integer;
 begin
   ColumnsClass := GetColumnsClass;
 
@@ -670,7 +675,7 @@ begin
           SizePriority := 1
         else
           SizePriority := 0;
-        Width:= ColumnsClass.GetColumnWidth(X);
+        Width:= MulDiv(ColumnsClass.GetColumnWidth(X), gCurrentMonitorDpi, 96);
         Title.Caption:= ColumnsClass.GetColumnTitle(X);
         AColumnsFunctions+= ColumnsClass.GetColumnFuncString(X);
       end;
@@ -1287,6 +1292,7 @@ procedure TDrawGridEx.UpdateView;
     FreeAndNil(NewFont);
 
     Result := MaxFontHeight + gExtraLineSpan;
+    Result := MulDiv(Result, gCurrentMonitorDpi, Screen.PixelsPerInch);
   end;
 
   function CalculateTabHeaderHeight: Integer;
@@ -1319,15 +1325,8 @@ begin
   begin
     if RowCount < 1 then
       RowCount := 1;
-
     FixedRows := 1;
-
-    TabHeaderHeight := Max(gIconsSize, CalculateTabHeaderHeight);
-    TabHeaderHeight := TabHeaderHeight + 2; // for borders
-    if not gInterfaceFlat then
-    begin
-      TabHeaderHeight := TabHeaderHeight + 2; // additional borders if not flat
-    end;
+    TabHeaderHeight := DefaultRowHeight;
     RowHeights[0] := TabHeaderHeight;
   end
   else
