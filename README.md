@@ -6,12 +6,15 @@ A custom build of the file manager [**Double Commander**](http://doublecmd.sourc
 
 ## Download
 
-### Original Releases
-[Download](https://github.com/doublecmd/doublecmd/releases)
+### [Original Releases](https://github.com/doublecmd/doublecmd/releases)
 
-### v1.1.0
-- [Windows 32 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0/doublecmd-1.1.0-rebuild-x32.zip) **(10.2 MB)**
-- [Windows 64 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0/doublecmd-1.1.0-rebuild-x64.zip) **(11.0 MB)**
+### v1.1.0 - Rebuild 2
+- [Windows 32 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0-RB2/doublecmd-1.1.0-RB2-rebuild-x32.zip) **(10.2 MB)**
+- [Windows 64 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0-RB2/doublecmd-1.1.0-RB2-rebuild-x64.zip) **(11.0 MB)**
+
+### v1.1.0 - Rebuild 1
+- [Windows 32 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0-RB1/doublecmd-1.1.0-RB1-rebuild-x32.zip) **(10.2 MB)**
+- [Windows 64 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0-RB1/doublecmd-1.1.0-RB1-rebuild-x64.zip) **(11.0 MB)**
 
 *Versions built from the older SVN repository*
 
@@ -58,6 +61,7 @@ A custom build of the file manager [**Double Commander**](http://doublecmd.sourc
 - quick view works for folders
 - in the create folder dialog, multiple folders can be created, using the new text field and Ctrl+Enter
 - when duplicating files in the same folder, always use the pattern 'file-counter'
+- support for multiple monitors [beta]
 
 
 ## Notes
