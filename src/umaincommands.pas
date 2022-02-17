@@ -5726,12 +5726,13 @@ var
   S: String;
   LogFileName: String;
   RenameResult: Boolean;
+  DummyForm: TfrmStatistics;
 begin
   SelectedIndices := TList.Create;
   
-  AFileList:= TStringListEx.Create;
-  AFileName:= GetTempFolderDeletableAtTheEnd;
-  AFileName:= GetTempName(AFileName) + '.txt';
+  AFileList := TStringListEx.Create;
+  AFileName := GetTempFolderDeletableAtTheEnd;
+  AFileName := GetTempName(AFileName) + '.txt';
   
   FFiles := frmMain.ActiveFrame.CloneSelectedFiles;
   AllFiles := frmMain.ActiveFrame.CloneFiles;
@@ -5749,10 +5750,12 @@ begin
   for I:= 0 to FFiles.Count - 1 do
     AFileList.Add(FFiles[I].Name);
 
+  // Used as parent to prevent blocking of the main form
+  DummyForm := TfrmStatistics.Create(Self);
   try
     AFileList.SaveToFile(AFileName);
-
-    if ShowMultiRenameWaitForm(AFileName, frmMain) then
+    
+    if ShowMultiRenameWaitForm(AFileName, DummyForm) then
     begin
       LogFileName := gMulRenLogFilename;
       
@@ -5823,6 +5826,7 @@ begin
     on E: Exception do msgError(E.Message);
   end;
   
+  DummyForm.Free;
   AFileList.Free;
   SelectedIndices.Free;
 end;
