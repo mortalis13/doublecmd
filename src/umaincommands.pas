@@ -5720,6 +5720,12 @@ var
   FFiles, AllFiles: TFiles;
   DisplayFiles: TDisplayFiles;
   SelectedIndices: TList;
+  
+  FLog: TStringListEx;
+  LogFileStream: TFileStream;
+  S: String;
+  LogFileName: String;
+  RenameResult: Boolean;
 begin
   SelectedIndices := TList.Create;
   
@@ -5748,6 +5754,11 @@ begin
 
     if ShowMultiRenameWaitForm(AFileName, frmMain) then
     begin
+      LogFileName := gMulRenLogFilename;
+      
+      FLog := TStringListEx.Create;
+      FLog.Add('>>> [' + DateTimeToStr(Now) + ']');
+      
       AFileListResult:= TStringListEx.Create;
       AFileListResult.LoadFromFile(AFileName);
       
@@ -5761,14 +5772,52 @@ begin
         begin
           FileNameSource := FFiles[I].FullPath;
           FileNameResult := ExtractFilePath(FileNameSource) + AFileListResult[I];
-          mbRenameFile(FileNameSource, FileNameResult);
+          S := FileNameSource + ' -> ' + FileNameResult;
+          
+          if not mbFileExists(FileNameResult) then
+          begin
+            RenameResult := mbRenameFile(FileNameSource, FileNameResult);
+
+            if RenameResult then
+              S := 'OK      ' + S
+            else
+              S := 'ERROR   ' + S;
+          end
+          else if FileNameSource <> FileNameResult then
+              S := 'EXISTS  ' + S
+          else
+              S := 'SKIP    ' + S;
+          
+          FLog.Add(S);
         end;
+        FLog.Add('');
       end;
       
       frmMain.ActiveFrame.MarkFiles(False);
-
+      
       AFileListResult.Free;
-      mbDeleteFile(AFileName);
+      
+      try
+        if FileExists(mbExpandFileName(LogFileName)) then
+        begin
+          LogFileStream := TFileStream.Create(mbExpandFileName(LogFileName), fmOpenWrite);
+          try
+            LogFileStream.Seek(0, soEnd);
+            FLog.SaveToStream(LogFileStream);
+          finally
+            LogFileStream.Free;
+          end;
+        end
+        else
+        begin
+          FLog.SaveToFile(mbExpandFileName(LogFileName));
+        end;
+      except
+        on E: Exception do
+          msgError(E.Message);
+      end;
+      FLog.Free;
+      
     end;
   except
     on E: Exception do msgError(E.Message);
