@@ -5719,7 +5719,6 @@ var
   AFileListResult: TStringListEx;
   FFiles, AllFiles: TFiles;
   DisplayFiles: TDisplayFiles;
-  SelectedIndices: TList;
   
   FLog: TStringListEx;
   LogFileStream: TFileStream;
@@ -5728,25 +5727,11 @@ var
   RenameResult: Boolean;
   DummyForm: TfrmStatistics;
 begin
-  SelectedIndices := TList.Create;
-  
   AFileList := TStringListEx.Create;
   AFileName := GetTempFolderDeletableAtTheEnd;
   AFileName := GetTempName(AFileName) + '.txt';
   
-  FFiles := frmMain.ActiveFrame.CloneSelectedFiles;
-  AllFiles := frmMain.ActiveFrame.CloneFiles;
-  
-  for I:=0 to AllFiles.Count - 1 do
-    for J:=0 to FFiles.Count - 1 do
-    begin
-      if AllFiles[I].Name = FFiles[J].Name then
-      begin
-        SelectedIndices.Add(Pointer(I));
-        break;
-      end;
-    end;
-  
+  FFiles := frmMain.ActiveFrame.CloneSelectedOrActiveFiles;
   for I:= 0 to FFiles.Count - 1 do
     AFileList.Add(FFiles[I].Name);
 
@@ -5828,7 +5813,6 @@ begin
   
   DummyForm.Free;
   AFileList.Free;
-  SelectedIndices.Free;
 end;
 
 end.
