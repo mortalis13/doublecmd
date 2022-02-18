@@ -55,7 +55,7 @@ goto:eof
 
 :rebuild
   echo == Rebuild
-  call clean
+  call clean_dev
   call :build
 goto:eof
 
