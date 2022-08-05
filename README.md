@@ -8,9 +8,13 @@ A custom build of the file manager [**Double Commander**](http://doublecmd.sourc
 
 ### [Original Releases](https://github.com/doublecmd/doublecmd/releases)
 
+### v1.1.0 - Rebuild 3
+- [Windows 32 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0-RB3/doublecmd-1.1.0-RB3-rebuild-x32.zip) **(10.8 MB)**
+- [Windows 64 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0-RB3/doublecmd-1.1.0-RB3-rebuild-x64.zip) **(11.6 MB)**
+
 ### v1.1.0 - Rebuild 2
-- [Windows 32 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0-RB2/doublecmd-1.1.0-RB2-rebuild-x32.zip) **(10.2 MB)**
-- [Windows 64 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0-RB2/doublecmd-1.1.0-RB2-rebuild-x64.zip) **(11.0 MB)**
+- [Windows 32 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0-RB2/doublecmd-1.1.0-RB2-rebuild-x32.zip) **(10.8 MB)**
+- [Windows 64 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0-RB2/doublecmd-1.1.0-RB2-rebuild-x64.zip) **(11.6 MB)**
 
 ### v1.1.0 - Rebuild 1
 - [Windows 32 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0-RB1/doublecmd-1.1.0-RB1-rebuild-x32.zip) **(10.2 MB)**
@@ -64,13 +68,36 @@ A custom build of the file manager [**Double Commander**](http://doublecmd.sourc
 - support for multiple monitors [beta]
 
 
+## Changelog
+
+### v1.1.0 - Rebuild 3
+
+- fixes/features for the multi-rename-with-editor operation:
+  - prevent renaming if a file exists
+  - always write log
+  - prevent deletion of temp file (used for editing the file names)
+  - the waiting dialog does not block the main window
+  - use active file if no files are selected
+- the free space label is not showed if free and total size are 0 (used in views for archives, VFS etc.)
+
+### v1.1.0 - Rebuild 2
+
+- support for multiple monitors [beta]
+- save main window coordinates when it's maximized
+- removed some buttons from the drive toolbar (go to root, parent dir, home)
+
+### v1.1.0 - Rebuild 1
+
+- the initial release with all features from the **Modifications** section
+
+
 ## Notes
 
 ### Aliases
 *Borrowed from the MultiCommander manager*
 
-To use command aliases, create a file **aliases.txt** in the Double Commander profile folder and add text with the format **"[alias] [command]"**.  
-For example, `"dd cd C:\Users\Me\Documents"`.  
+To use command aliases, create a file **aliases.txt** in the Double Commander profile folder and add text with the format **`[alias] [command]`**.  
+For example, **`dd cd C:\Users\Me\Documents`**.  
 Then enter the alias in the **command line** within Double Commander and press Enter to execute the command.
 
 
