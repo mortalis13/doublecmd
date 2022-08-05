@@ -1267,7 +1267,7 @@ procedure TDrawGridEx.UpdateView;
     NewFont     := TFont.Create;
     Canvas.Font := NewFont;
 
-    Canvas.Font.PixelsPerInch := NewFont.PixelsPerInch;
+    Canvas.Font.PixelsPerInch := gCurrentMonitorDpi;
 
     // Search columns settings for the biggest font (in height).
     for i := 0 to ColumnsSet.Count - 1 do

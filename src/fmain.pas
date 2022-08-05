@@ -3978,6 +3978,7 @@ end;
 procedure TfrmMain.WMMove(var Message: TLMMove);
 var
   CurrentDpi: Integer;
+  tempIconSize: Integer;
 begin
   inherited WMMove(Message);
   
@@ -3990,8 +3991,13 @@ begin
     CurrentDpi := Screen.MonitorFromWindow(Handle).PixelsPerInch;
     if gCurrentMonitorDpi <> CurrentDpi then
     begin
+      dcdebug(Format('Monitor DPI changed from %d to %d', [gCurrentMonitorDpi, CurrentDpi]));
+      
+      tempIconSize := gIconsSize;
+      gIconsSize := MulDiv(gIconsSize, CurrentDpi, gCurrentMonitorDpi);
+      dcdebug(Format('gIconsSize changed from %d to %d', [tempIconSize, gIconsSize]));
+      
       gCurrentMonitorDpi := CurrentDpi;
-      dcdebug(Format('Monitor DPI Changed from %d to %d', [gCurrentMonitorDpi, CurrentDpi]));
       UpdateWindowView;
     end;
   end;
@@ -6144,6 +6150,8 @@ begin
       FRestoredHeight := MulDiv(FRestoredHeight, Screen.PixelsPerInch, FPixelsPerInch);
     end;
     SetBounds(FRestoredLeft, FRestoredTop, FRestoredWidth, FRestoredHeight);
+    
+    gCurrentMonitorDpi := FPixelsPerInch;
   end;
 end;
 
@@ -6159,7 +6167,7 @@ begin
     gConfig.SetValue(ANode, 'Top', FRestoredTop + 15);
     gConfig.SetValue(ANode, 'Width', FRestoredWidth);
     gConfig.SetValue(ANode, 'Height', FRestoredHeight);
-    gConfig.SetValue(ANode, 'PixelsPerInch', Screen.PixelsPerInch);
+    gConfig.SetValue(ANode, 'PixelsPerInch', gCurrentMonitorDpi);
     gConfig.SetValue(ANode, 'Maximized', (WindowState = wsMaximized));
     gConfig.SetValue(ANode, 'Splitter', FMainSplitterPos);
   end;
