@@ -46,7 +46,6 @@ rem ----------------------------------
 :all
   echo == Full Build
   echo Build params: %BUILD_PROFILE%, %BUILD_OS%, %BUILD_CPU%, %lazpath%
-  pause
   call clean
   call components\build
   call plugins\build

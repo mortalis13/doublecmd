@@ -29,7 +29,7 @@ interface
 uses
   Classes, SysUtils, ActnList, uFileView, uFileViewNotebook, uFileSourceOperation,
   uGlobs, uFileFunctions, uFormCommands, uFileSorting, uShellContextMenu, Menus, ufavoritetabs, ufile,
-  DCClassesUtf8, fMultiRenameWait;
+  DCClassesUtf8, fMultiRenameWait, LazUtf8;
 
 type
 
@@ -5762,8 +5762,10 @@ begin
           FileNameResult := ExtractFilePath(FileNameSource) + AFileListResult[I];
           S := FileNameSource + ' -> ' + FileNameResult;
           
-          if not mbFileExists(FileNameResult) then
-          begin
+          // Rename if result file doesn't exist or the case is changed
+          if not mbFileExists(FileNameResult)
+             or (FileNameSource <> FileNameResult) and (UTF8LowerCase(FileNameSource) = UTF8LowerCase(FileNameResult))
+          then begin
             RenameResult := mbRenameFile(FileNameSource, FileNameResult);
 
             if RenameResult then
@@ -5772,9 +5774,9 @@ begin
               S := 'ERROR   ' + S;
           end
           else if FileNameSource <> FileNameResult then
-              S := 'EXISTS  ' + S
+            S := 'EXISTS  ' + S
           else
-              S := 'SKIP    ' + S;
+            S := 'SKIP    ' + S;
           
           FLog.Add(S);
         end;
