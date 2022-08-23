@@ -8,6 +8,10 @@ A custom build of the file manager [**Double Commander**](http://doublecmd.sourc
 
 ### [Original Releases](https://github.com/doublecmd/doublecmd/releases)
 
+### v1.1.0 - Rebuild 5
+- [Windows 32 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0-RB5/doublecmd-1.1.0-RB5-rebuild-x32.zip) **(10.8 MB)**
+- [Windows 64 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0-RB5/doublecmd-1.1.0-RB5-rebuild-x64.zip) **(11.6 MB)**
+
 ### v1.1.0 - Rebuild 4
 - [Windows 32 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0-RB4/doublecmd-1.1.0-RB4-rebuild-x32.zip) **(10.8 MB)**
 - [Windows 64 bit](https://github.com/mortalis13/DoubleCommander-Rebuild/releases/download/1.1.0-RB4/doublecmd-1.1.0-RB4-rebuild-x64.zip) **(11.6 MB)**
@@ -73,6 +77,9 @@ A custom build of the file manager [**Double Commander**](http://doublecmd.sourc
 
 
 ## Changelog
+
+### v1.1.0 - Rebuild 5
+- multirename if case is changed
 
 ### v1.1.0 - Rebuild 4
 - preserve height for disk space label when entering archives
