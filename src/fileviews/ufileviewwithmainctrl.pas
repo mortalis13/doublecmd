@@ -235,7 +235,7 @@ uses
   LCLIntf, LCLProc, LazUTF8, Forms, Dialogs, Buttons, DCOSUtils, DCStrUtils,
   fMain, uShowMsg, uLng, uFileProperty, uFileSource, uFileSourceOperationTypes,
   uGlobs, uInfoToolTip, uDisplayFile, uFileSystemFileSource, uFileSourceUtil,
-  uArchiveFileSourceUtil, uFormCommands, uKeyboard, uFileSourceSetFilePropertyOperation;
+  uArchiveFileSourceUtil, uFormCommands, uKeyboard, uFileSourceSetFilePropertyOperation, strutils;
 
 type
   TControlHandlersHack = class(TWinControl)
@@ -313,6 +313,11 @@ end;
 
 {$IFDEF LCLWIN32}
 procedure TFileViewWithMainCtrl.edtRenameKeyDown(Sender: TObject; var Key: word; Shift: TShiftState);
+var
+  NewFileName: String;
+  I: Integer;
+  TextBefore, TextAfter: String;
+  CursorPos, wPos, wCount, wPosTemp, wNum, wLen, NewFileNameLen, DeletedChars: Integer;
 begin
   case Key of
     // Workaround for Win32 - right arrow must clear selection at first move.
@@ -329,6 +334,39 @@ begin
       end;
      VK_LEFT:
         FRenFile.UserManualEdit:=True; // user begin manual edit - no need cycle Name,Ext,FullName selection
+    
+    VK_BACK:
+      begin
+        if (ssCtrl in Shift) then
+        begin
+          NewFileName := edtRename.Text;
+          CursorPos := edtRename.SelStart + edtRename.SelLength + 1;
+          NewFileNameLen := Length(NewFileName);
+          
+          wPos := 0;
+          wCount := WordCount(NewFileName, StdWordDelims);
+          
+          if wCount > 0 then
+          begin
+            for I := 1 to wCount do
+            begin
+              wPosTemp := WordPosition(I, NewFileName, StdWordDelims);
+              if wPosTemp >= CursorPos then Break;
+              wPos := wPosTemp;
+            end;
+          end;
+          
+          TextBefore := Copy(NewFileName, 1, wPos-1);
+          TextAfter := Copy(NewFileName, CursorPos, NewFileNameLen);
+          NewFileName := TextBefore + TextAfter;
+
+          edtRename.Text := NewFileName;
+          edtRename.SelStart := wPos-1;
+          
+          Key := 0;
+        end;
+      end;
+    
   end;
 end;
 {$ENDIF}
