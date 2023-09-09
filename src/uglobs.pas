@@ -473,7 +473,6 @@ var
   gNewSearchClearFiltersAction : TFiltersOnNewSearch;
   gShowMenuBarInFindFiles : Boolean;
   gSkipFileOpError: Boolean;
-  gTypeOfDuplicatedRename: tDuplicatedRename;
   gDropReadOnlyFlag : Boolean;
   gWipePassNumber: Integer;
   gProcessComments: Boolean;
@@ -1876,7 +1875,6 @@ begin
   gShowCopyTabSelectPanel := False;
   gUseTrash := True;
   gSkipFileOpError := False;
-  gTypeOfDuplicatedRename := drLegacyWithCopy;
   gShowDialogOnDragDrop := True;
   gDragAndDropDesiredTextFormat[DropTextRichText_Index].Name:='Richtext format';
   gDragAndDropDesiredTextFormat[DropTextRichText_Index].DesireLevel:=0;
@@ -2875,7 +2873,6 @@ begin
       gShowCopyTabSelectPanel := GetValue(Node, 'ShowCopyTabSelectPanel', gShowCopyTabSelectPanel);
       gUseTrash := GetValue(Node, 'UseTrash', gUseTrash);
       gSkipFileOpError := GetValue(Node, 'SkipFileOpError', gSkipFileOpError);
-      gTypeOfDuplicatedRename := tDuplicatedRename(GetValue(Node, 'TypeOfDuplicatedRename', Integer(gTypeOfDuplicatedRename)));
       gShowDialogOnDragDrop := GetValue(Node, 'ShowDialogOnDragDrop', gShowDialogOnDragDrop);
       gDragAndDropDesiredTextFormat[DropTextRichText_Index].DesireLevel := GetValue(Node, 'DragAndDropTextRichtextDesireLevel', gDragAndDropDesiredTextFormat[DropTextRichText_Index].DesireLevel);
       gDragAndDropDesiredTextFormat[DropTextHtml_Index].DesireLevel := GetValue(Node, 'DragAndDropTextHtmlDesireLevel',gDragAndDropDesiredTextFormat[DropTextHtml_Index].DesireLevel);
@@ -3531,7 +3528,6 @@ begin
     SetValue(Node, 'ShowCopyTabSelectPanel', gShowCopyTabSelectPanel);
     SetValue(Node, 'UseTrash', gUseTrash);
     SetValue(Node, 'SkipFileOpError', gSkipFileOpError);
-    SetValue(Node, 'TypeOfDuplicatedRename', Integer(gTypeOfDuplicatedRename));
     SetValue(Node, 'ShowDialogOnDragDrop', gShowDialogOnDragDrop);
     SetValue(Node, 'DragAndDropTextRichtextDesireLevel', gDragAndDropDesiredTextFormat[DropTextRichText_Index].DesireLevel);
     SetValue(Node, 'DragAndDropTextHtmlDesireLevel',gDragAndDropDesiredTextFormat[DropTextHtml_Index].DesireLevel);
