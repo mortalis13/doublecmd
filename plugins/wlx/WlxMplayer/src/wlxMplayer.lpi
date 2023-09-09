@@ -159,6 +159,11 @@ end;"/>
         <ConfigFilePath Value="fpc-extra.cfg"/>
       </ConfigFile>
       <CustomOptions Value="-dLCL$(LCLWidgetType)"/>
+      <Verbosity>
+        <ShowWarn Value="False"/>
+        <ShowNotes Value="False"/>
+        <ShowHints Value="False"/>
+      </Verbosity>
     </Other>
   </CompilerOptions>
 </CONFIG>

@@ -149,6 +149,11 @@
     </Linking>
     <Other>
       <CustomOptions Value="-dUNICODE_CTRLS"/>
+      <Verbosity>
+        <ShowWarn Value="False"/>
+        <ShowNotes Value="False"/>
+        <ShowHints Value="False"/>
+      </Verbosity>
     </Other>
   </CompilerOptions>
   <Debugging>
