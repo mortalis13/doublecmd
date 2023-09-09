@@ -285,8 +285,9 @@ procedure TfrmQuickSearch.ProcessParams(const SearchMode: TQuickSearchMode; cons
 var
   Param: String;
   Value: String;
-  bWeGotMainParam: boolean = False;
-  bLegacyBehavior: boolean = False;
+  bWeGotMainParam: Boolean = False;
+  bLegacyBehavior: Boolean = False;
+  CaretPos: TPoint;
 begin
   BeginUpdate;
   try
@@ -396,7 +397,14 @@ begin
     //If search or filter was called with no parameter...
     case SearchMode of
       qsSearch: if not bWeGotMainParam then tglFilter.Checked:=False;
-      qsFilter: if not bWeGotMainParam then tglFilter.Checked:=True;
+      qsFilter: 
+      begin
+        if not bWeGotMainParam then tglFilter.Checked:=True;
+        edtSearch.Text := '*';
+        CaretPos.x := 1;
+        CaretPos.y := 0;
+        edtSearch.CaretPos := CaretPos;
+      end;
     end;
 
     if not bLegacyBehavior then
