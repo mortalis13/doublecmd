@@ -195,6 +195,7 @@ begin
       WinFileTimeToDateTime(pFindData^.ftLastAccessTime));
 
     LinkProperty := TFileLinkProperty.Create;
+    FilesCountProperty := TFileFilesCountProperty.Create;
 
     if fpS_ISLNK(pFindData^.dwFileAttributes) then
     begin
@@ -238,6 +239,7 @@ begin
       FileTimeToDateTime(TUnixFileTime(pStatInfo^.st_atime)));
 
     LinkProperty := TFileLinkProperty.Create;
+    FilesCountProperty := TFileFilesCountProperty.Create;
 
     if fpS_ISLNK(pStatInfo^.st_mode) then
     begin
@@ -269,6 +271,7 @@ begin
     CreationTimeProperty := TFileCreationDateTimeProperty.Create(pSearchRecord^.Time);
     LastAccessTimeProperty := TFileLastAccessDateTimeProperty.Create(pSearchRecord^.Time);
     LinkProperty := TFileLinkProperty.Create;
+    FilesCountProperty := TFileFilesCountProperty.Create;
   end;
 end;
 
@@ -318,6 +321,7 @@ begin
     OwnerProperty := TFileOwnerProperty.Create;
     TypeProperty := TFileTypeProperty.Create;
     CommentProperty := TFileCommentProperty.Create;
+    FilesCountProperty := TFileFilesCountProperty.Create;
   end;
 end;
 
@@ -347,6 +351,7 @@ begin
     LastAccessTimeProperty := TFileLastAccessDateTimeProperty.Create(DCBasicTypes.TFileTime(pSearchRecord^.LastAccessTime));
 
     LinkProperty := TFileLinkProperty.Create;
+    FilesCountProperty := TFileFilesCountProperty.Create;
 
     if fpS_ISLNK(pSearchRecord^.Attr) then
     begin
@@ -530,6 +535,8 @@ begin
         LastAccessTimeProperty := TFileLastAccessDateTimeProperty.Create(
           WinFileTimeToDateTime(FindData.ftLastAccessTime));
     end;
+
+    FilesCountProperty := TFileFilesCountProperty.Create;
 
     if fpLink in PropertiesToSet then
     begin
@@ -842,7 +849,8 @@ begin
              fpChangeTime,
              {$ENDIF}
              fpLastAccessTime,
-             uFileProperty.fpLink
+             uFileProperty.fpLink,
+             fpFilesCount
             ];
 end;
 
