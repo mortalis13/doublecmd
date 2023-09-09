@@ -1,10 +1,10 @@
 object frmMkDir: TfrmMkDir
   Left = 366
-  Height = 125
+  Height = 272
   Top = 429
   Width = 350
+  AutoSize = False
   ActiveControl = cbMkDir
-  AutoSize = True
   BorderIcons = [biSystemMenu]
   BorderStyle = bsDialog
   Caption = 'Create new directory'
@@ -34,8 +34,6 @@ object frmMkDir: TfrmMkDir
     Top = 28
     Width = 338
     Align = alTop
-    AutoComplete = True
-    AutoCompleteText = [cbactEnabled, cbactEndOfLineComplete, cbactRetainPrefixCase, cbactSearchAscending]
     BorderSpacing.Left = 6
     BorderSpacing.Top = 6
     BorderSpacing.Right = 6
@@ -56,6 +54,7 @@ object frmMkDir: TfrmMkDir
     BorderSpacing.Left = 6
     BorderSpacing.Top = 6
     BorderSpacing.Right = 6
+    BorderSpacing.Bottom = 3
     Caption = '&Extended syntax'
     OnChange = cbExtendedChange
     TabOrder = 1
@@ -69,11 +68,24 @@ object frmMkDir: TfrmMkDir
     BorderSpacing.Left = 6
     BorderSpacing.Top = 6
     BorderSpacing.Right = 6
+    BorderSpacing.Bottom = 3
+  end
+  object mDirList: TMemo
+    Left = 6
+    Height = 120
+    Top = 82
+    Width = 338
+    Align = alTop
+    BorderSpacing.Left = 6
+    BorderSpacing.Top = 6
+    BorderSpacing.Right = 6
+    TabOrder = 1
+    OnKeyDown = mDirListKeyDown
   end
   object ButtonPanel: TButtonPanel
     Left = 6
     Height = 27
-    Top = 91
+    Top = 210
     Width = 338
     Align = alTop
     BorderSpacing.Top = 6

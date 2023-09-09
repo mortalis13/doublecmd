@@ -5,7 +5,7 @@ unit fMkDir;
 interface
 
 uses
-  SysUtils, Classes, Controls, Forms, StdCtrls, Buttons, ExtCtrls, ButtonPanel;
+  SysUtils, Classes, Controls, Forms, StdCtrls, Buttons, ExtCtrls, ButtonPanel, LCLType, Dialogs, strutils, uDebug;
 
 type
 
@@ -17,15 +17,18 @@ type
     cbMkDir: TComboBox;
     lblExample: TLabel;
     lblMakeDir: TLabel;
+    mDirList: TMemo;
+    
     procedure cbExtendedChange(Sender: TObject);
     procedure cbMkDirChange(Sender: TObject);
     procedure cbMkDirKeyUp(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure mDirListKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure RefreshExample;
   public
 
   end;
 
-function ShowMkDir(TheOwner: TComponent; var sPath: String): Boolean;
+function ShowMkDir(TheOwner: TComponent; var sPath:String; var sPathList: TStringList): Boolean;
 
 implementation
 
@@ -95,15 +98,19 @@ begin
   end;
 end;
 
-function ShowMkDir(TheOwner: TComponent; var sPath: String): Boolean;
+function ShowMkDir(TheOwner: TComponent; var sPath: String; var sPathList: TStringList): Boolean;
 const
   MAX_LINES = 20;
 var
   Index: Integer;
   Syntax: TObject;
+  i: Integer;
+  dirListItem: String;
 begin
   with TfrmMkDir.Create(TheOwner) do
   try
+    mDirList.Text := '';
+    
     ActiveControl := cbMkDir;
     cbMkDir.Items.Assign(glsCreateDirectoriesHistory);
     if (sPath <> '..') then
@@ -111,9 +118,11 @@ begin
     else begin
       cbMkDir.Text := '';
     end;
+    
     RefreshExample;
     cbMkDir.SelectAll;
     Result := (ShowModal = mrOK);
+    
     if Result then
     begin
       sPath := TrimPath(cbMkDir.Text);
@@ -136,9 +145,33 @@ begin
       begin
         sPath := lblExample.Caption;
       end;
+    
+      if mDirList.Lines.Count = 0 then
+      begin
+        sPathList.Add(sPath);
+      end
+      else
+      begin
+        for i:=0 to mDirList.Lines.Count-1 do
+        begin
+          dirListItem := mDirList.Lines[i].Trim;
+          if Length(dirListItem) <> 0 then
+            sPathList.Add(dirListItem);
+        end;
+      end;
     end;
   finally
     Free;
+  end;
+end;
+
+procedure TfrmMkDir.mDirListKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (ssCtrl in Shift) and (Key = VK_RETURN) then
+  begin
+    ModalResult:=mrOK;
+    Key:=0;
   end;
 end;
 
