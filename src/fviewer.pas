@@ -1398,6 +1398,9 @@ end;
 
 procedure TfrmViewer.SavingProperties(Sender: TObject);
 begin
+  // Allow only state saving, as text is scaled incorrectly
+  // when maximized mode is used with mutiple monitors with different scaling factors
+  SessionProperties := 'WindowState';
   if miFullScreen.Checked then SessionProperties:= EmptyStr;
 end;
 
